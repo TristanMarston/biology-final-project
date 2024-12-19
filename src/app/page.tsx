@@ -2,7 +2,7 @@
 
 import { Audiowide } from 'next/font/google';
 import Link from 'next/link';
-import BottomUtilityBar from './_components/BottomUtilityBar';
+import BottomUtilityBar from './_components/UtilityBar';
 import StatsDisplay from './_components/StatsButton';
 import { GameProvider } from './context';
 import { Toaster } from 'react-hot-toast';
@@ -57,7 +57,7 @@ const page = () => {
                     </Link>
                 </div>
                 <StatsDisplay />
-                <BottomUtilityBar visibility={{ leaderboard: true, shop: true, help: true, user: true, settings: true }} />
+                <BottomUtilityBar visibility={{ leaderboard: true, shop: true, help: true, user: true, settings: true }} position='bottom-right' />
             </div>
         </GameProvider>
     );

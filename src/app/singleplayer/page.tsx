@@ -1,9 +1,10 @@
 'use client';
 
 import { Audiowide } from 'next/font/google';
-import BottomUtilityBar from '../_components/BottomUtilityBar';
+import BottomUtilityBar from '../_components/UtilityBar';
 import { Toaster } from 'react-hot-toast';
 import { GameProvider } from '../context';
+import ParentRollingContainer from './_components/ParentRollingContainer';
 
 const audiowide = Audiowide({ weight: '400', subsets: ['latin'] });
 
@@ -20,8 +21,9 @@ const page = () => {
                             SINGLEPLAYER
                         </h1>
                     </div>
+                    <ParentRollingContainer />
                 </div>
-                <BottomUtilityBar visibility={{ leaderboard: true, shop: false, help: true, user: true, settings: true }} />
+                <BottomUtilityBar visibility={{ leaderboard: true, shop: false, help: true, user: true, settings: true }} position='top-right' />
             </div>
         </GameProvider>
     );
