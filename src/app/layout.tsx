@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import './globals.css';
+import GuestInitializer from './GuestInitializer';
 
 export const metadata: Metadata = {
     title: 'Gene Fighters',
@@ -13,7 +14,10 @@ export default function RootLayout({
 }>) {
     return (
         <html lang='en'>
-            <body className={``}>{children}</body>
+            <body className={`overflow-hidden`}>
+                <GuestInitializer />
+                {children}
+            </body>
         </html>
     );
 }
