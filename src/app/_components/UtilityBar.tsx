@@ -9,8 +9,8 @@ export type IconVisibility = {
     settings: boolean;
 };
 
-const BottomUtilityBar = ({ visibility, position }: { visibility: IconVisibility; position: 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right' }) => {
-    const context = useGameContext();
+const UtilityBar = ({ visibility, position, contextFunc }: { visibility: IconVisibility; position: 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right', contextFunc: () => any }) => {
+    const context = contextFunc();
     if (context === undefined) throw new Error('useContext(GameContext) must be used within a GameContext.Provider');
 
     const { statsAndShopModalOpen, setStatsAndShopModalOpen } = context;
@@ -35,4 +35,4 @@ const BottomUtilityBar = ({ visibility, position }: { visibility: IconVisibility
     );
 };
 
-export default BottomUtilityBar;
+export default UtilityBar;

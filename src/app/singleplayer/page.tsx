@@ -1,10 +1,10 @@
 'use client';
 
 import { Audiowide } from 'next/font/google';
-import BottomUtilityBar from '../_components/UtilityBar';
 import { Toaster } from 'react-hot-toast';
-import { GameProvider } from '../context';
 import ParentRollingContainer from './_components/ParentRollingContainer';
+import { GameProvider, useGameContext } from './context';
+import UtilityBar from '../_components/UtilityBar';
 
 const audiowide = Audiowide({ weight: '400', subsets: ['latin'] });
 
@@ -23,7 +23,7 @@ const page = () => {
                     </div>
                     <ParentRollingContainer />
                 </div>
-                <BottomUtilityBar visibility={{ leaderboard: true, shop: false, help: true, user: true, settings: true }} position='top-right' />
+                <UtilityBar visibility={{ leaderboard: true, shop: false, help: true, user: true, settings: true }} position='top-right' contextFunc={useGameContext} />
             </div>
         </GameProvider>
     );

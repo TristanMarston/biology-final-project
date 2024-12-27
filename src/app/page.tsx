@@ -2,10 +2,10 @@
 
 import { Audiowide } from 'next/font/google';
 import Link from 'next/link';
-import BottomUtilityBar from './_components/UtilityBar';
 import StatsDisplay from './_components/StatsButton';
-import { GameProvider } from './context';
+import { GameProvider, useGameContext } from './context';
 import { Toaster } from 'react-hot-toast';
+import UtilityBar from './_components/UtilityBar';
 
 const audiowide = Audiowide({ weight: '400', subsets: ['latin'] });
 
@@ -57,7 +57,7 @@ const page = () => {
                     </Link>
                 </div>
                 <StatsDisplay />
-                <BottomUtilityBar visibility={{ leaderboard: true, shop: true, help: true, user: true, settings: true }} position='bottom-right' />
+                <UtilityBar visibility={{ leaderboard: true, shop: true, help: true, user: true, settings: true }} position='bottom-right' contextFunc={useGameContext} />
             </div>
         </GameProvider>
     );
