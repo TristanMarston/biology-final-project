@@ -13,13 +13,14 @@ type Props = {
     setCurrentStage: React.Dispatch<React.SetStateAction<CurrentStage>>;
     middleColumnVisible: boolean;
     alleleMap: AlleleMap[];
+    skipAnimation: boolean;
 };
 
-const ParentRoller = ({ whichParent, currentStage, setCurrentStage, middleColumnVisible, alleleMap }: Props) => {
+const ParentRoller = ({ whichParent, currentStage, setCurrentStage, middleColumnVisible, alleleMap, skipAnimation }: Props) => {
     const context = useGameContext();
     if (context === undefined) throw new Error('useContext(GameContext) must be used within a GameContext.Provider');
 
-    const { profile, setProfile, selectedParentAlleles } = context;
+    const { profile, selectedParentAlleles } = context;
 
     const allelesToString = (type: 'health' | 'strength' | 'defense') => {
         return Object.values(selectedParentAlleles[whichParent][type]).join('');
@@ -50,21 +51,21 @@ const ParentRoller = ({ whichParent, currentStage, setCurrentStage, middleColumn
                             <div key={index + type} className='flex flex-col gap-2'>
                                 <h5 className={`uppercase text-main-${color} brightness-150 text-lg`}>{type} ALLELES</h5>
                                 <div className='flex gap-2 w-full'>
-                                    {alleles.map(({ allele, flash }, i) => {
+                                    {alleles.map(({ allele, flash, selected }, i) => {
                                         const unlocked = profile?.alleles[type].includes(allele);
 
                                         return (
                                             <div key={allele} className='w-full flex flex-col gap-1'>
                                                 <div
                                                     className={`${
-                                                        flash ? 'brightness-150 scale-105' : 'brightness-100 scale-100'
+                                                        (flash && !skipAnimation) || selected ? 'brightness-150 scale-105' : 'brightness-100 scale-100'
                                                     } main-${color} border-[6px] rounded-[12px] border-white text-white uppercase text-md aspect-square w-full transition-all`}
                                                 >
                                                     <p className={`${!unlocked ? 'bg-[rgb(0,0,0,.6)]' : ''} w-full h-full rounded-[8px] grid place-items-center text-lg`}>{allele}</p>
                                                 </div>
                                                 <div
                                                     className={`${
-                                                        flash ? 'brightness-150 scale-105' : 'brightness-100 scale-100'
+                                                        (flash && !skipAnimation) || selected ? 'brightness-150 scale-105' : 'brightness-100 scale-100'
                                                     } text-white border-[6px] border-white text-[10px] grid place-items-center rounded-[12px] main-${color} h-full`}
                                                 >
                                                     <p className={`${!unlocked ? 'bg-[rgb(0,0,0,.6)]' : ''} w-full h-full rounded-[8px] grid place-items-center`}>
