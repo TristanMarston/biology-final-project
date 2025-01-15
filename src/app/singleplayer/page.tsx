@@ -3,12 +3,26 @@
 import { Audiowide } from 'next/font/google';
 import { Toaster } from 'react-hot-toast';
 import ParentRollingContainer from './_components/ParentRollingContainer';
-import { GameProvider, useGameContext } from './context';
+import { GameProvider, SelectedParentAlleles, useGameContext } from './context';
 import UtilityBar from '../_components/UtilityBar';
+import { AnimatePresence, motion } from 'framer-motion';
+import { useState } from 'react';
+import Fight from './_components/Fight';
+import CharacterFightContainer from './_components/ChildFightContainer';
 
 const audiowide = Audiowide({ weight: '400', subsets: ['latin'] });
 
+export type Overlay = {
+    text: string;
+    toggled: boolean;
+};
+
+export type Stage = 'parent-rolling' | 'child-animation' | 'game-started' | 'initial-animation';
+
 const page = () => {
+    const [overlay, setOverlay] = useState<Overlay>({ text: '', toggled: false });
+    const [stage, setStage] = useState<Stage>('parent-rolling');
+
     return (
         <GameProvider>
             <Toaster />
@@ -21,9 +35,27 @@ const page = () => {
                             SINGLEPLAYER
                         </h1>
                     </div>
-                    <ParentRollingContainer />
+                    {stage === 'parent-rolling' ? (
+                        <ParentRollingContainer setOverlay={setOverlay} setStage={setStage} />
+                    ) : (
+                        <CharacterFightContainer stage={stage} setStage={setStage} />
+                    )}
+                    <AnimatePresence>
+                        {overlay.toggled && (
+                            <motion.div
+                                key='overlay'
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                exit={{ opacity: 0 }}
+                                transition={{ duration: 0.5 }}
+                                className={`absolute inset-0 bg-black bg-opacity-80 flex items-center justify-center p-12`}
+                            >
+                                <div className={`${audiowide.className} text-white text-6xl text-center`}>{overlay.text}</div>
+                            </motion.div>
+                        )}
+                    </AnimatePresence>
                 </div>
-                <UtilityBar visibility={{ leaderboard: true, shop: false, help: true, user: true, settings: true }} position='top-right' contextFunc={useGameContext} />
+                {/* <UtilityBar visibility={{ leaderboard: true, shop: false, help: true, user: true, settings: true }} position='top-right' contextFunc={useGameContext} /> */}
             </div>
         </GameProvider>
     );

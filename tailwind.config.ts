@@ -20,6 +20,7 @@ export default {
                 'main-red': '#f17474',
                 'main-purple': '#d97bfe',
                 'main-green': '#53df5f',
+                'main-blue': '#537ddf',
             },
         },
     },

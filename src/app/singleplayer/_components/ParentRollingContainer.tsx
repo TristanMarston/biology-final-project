@@ -1,10 +1,11 @@
-import { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import ParentRoller from './ParentRoller';
 import { Audiowide } from 'next/font/google';
 import { AnimatePresence, motion } from 'framer-motion';
 import { SelectedParentAlleles, useGameContext } from '../context';
 import { SkipForward } from 'lucide-react';
 import { AlleleObject } from '@/utils/indexedDB';
+import { Overlay, Stage } from '../page';
 
 const audiowide = Audiowide({ weight: '400', subsets: ['latin'] });
 
@@ -12,6 +13,7 @@ export type CurrentStage = {
     allele: 'health' | 'strength' | 'defense';
     started: boolean;
     runRollAnimation: boolean;
+    animationComplete: boolean;
 };
 
 export type AlleleMap = {
@@ -45,12 +47,12 @@ const INITIAL_ALLELE_MAP = [
 
 const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
-const ParentRollingContainer = () => {
-    const [currentStage, setCurrentStage] = useState<CurrentStage>({ allele: 'health', started: false, runRollAnimation: false });
-    const [previousStage, setPreviousStage] = useState<CurrentStage>({ allele: 'health', started: false, runRollAnimation: false });
-    const [overlay, setOverlay] = useState({ text: '', toggled: false });
+const ParentRollingContainer = ({ setOverlay, setStage }: { setOverlay: React.Dispatch<React.SetStateAction<Overlay>>; setStage: React.Dispatch<React.SetStateAction<Stage>> }) => {
+    const [currentStage, setCurrentStage] = useState<CurrentStage>({ allele: 'health', started: false, runRollAnimation: false, animationComplete: false });
+    const [previousStage, setPreviousStage] = useState<CurrentStage>({ allele: 'health', started: false, runRollAnimation: false, animationComplete: false });
     const [middleColumnVisible, setMiddleColumnVisible] = useState(true);
     const [skipAnimation, setSkipAnimation] = useState({ button: false, toggled: false });
+    const [slideAwayAnimation, setSlideAwayAnimation] = useState(false);
     const skipAnimationRef = useRef(skipAnimation);
     const [selectedParentAlleleIndices, setSelectedParentAlleleIndices] = useState<ParentAlleleIndices>({
         first: {
@@ -72,7 +74,7 @@ const ParentRollingContainer = () => {
     const context = useGameContext();
     if (context === undefined) throw new Error('useContext(GameContext) must be used within a GameContext.Provider');
 
-    const { profile, setSelectedParentAlleles } = context;
+    const { profile, shopStats, selectedParentAlleles, setSelectedParentAlleles, setSelectedCPUParentAlleles, game, setGame } = context;
 
     const updateAlleles = (
         whichParent: 'first' | 'second',
@@ -99,6 +101,63 @@ const ParentRollingContainer = () => {
             );
             await sleep(150);
         }
+    };
+
+    const setGameInfo = () => {
+        const getQuantity = (alleles: SelectedParentAlleles, type: 'health' | 'strength' | 'defense', whichParent: 'first' | 'second'): number => {
+            const quantity = shopStats[type].find((map) => map.allele === alleles[whichParent][type])?.quantity;
+            return quantity !== undefined ? quantity : 100;
+        };
+
+        const cpuAlleles = (): SelectedParentAlleles => {
+            if (profile) {
+                return {
+                    first: {
+                        health: profile.alleles.health[Math.floor(Math.random() * profile.alleles.health.length)] as string,
+                        strength: profile.alleles.strength[Math.floor(Math.random() * profile.alleles.strength.length)] as string,
+                        defense: profile.alleles.defense[Math.floor(Math.random() * profile.alleles.defense.length)] as string,
+                    },
+                    second: {
+                        health: profile.alleles.health[Math.floor(Math.random() * profile.alleles.health.length)] as string,
+                        strength: profile.alleles.strength[Math.floor(Math.random() * profile.alleles.strength.length)] as string,
+                        defense: profile.alleles.defense[Math.floor(Math.random() * profile.alleles.defense.length)] as string,
+                    },
+                };
+            }
+
+            return {
+                first: {
+                    health: 'H3',
+                    strength: 'S3',
+                    defense: 'D3',
+                },
+                second: {
+                    health: 'H3',
+                    strength: 'S3',
+                    defense: 'D3',
+                },
+            };
+        };
+
+        const cpu = cpuAlleles();
+        setSelectedCPUParentAlleles(cpu);
+
+        setGame({
+            player: {
+                healthRemaining: getQuantity(selectedParentAlleles, 'health', 'first') + getQuantity(selectedParentAlleles, 'health', 'second'),
+                health: getQuantity(selectedParentAlleles, 'health', 'first') + getQuantity(selectedParentAlleles, 'health', 'second'),
+                strength: getQuantity(selectedParentAlleles, 'strength', 'first') + getQuantity(selectedParentAlleles, 'strength', 'second'),
+                defense: getQuantity(selectedParentAlleles, 'defense', 'first') + getQuantity(selectedParentAlleles, 'defense', 'second'),
+                currentTurn: false,
+            },
+            cpu: {
+                healthRemaining: getQuantity(cpu, 'health', 'first') + getQuantity(cpu, 'health', 'second'),
+                health: getQuantity(cpu, 'health', 'first') + getQuantity(cpu, 'health', 'second'),
+                strength: getQuantity(cpu, 'strength', 'first') + getQuantity(cpu, 'strength', 'second'),
+                defense: getQuantity(cpu, 'defense', 'first') + getQuantity(cpu, 'defense', 'second'),
+                currentTurn: false,
+            },
+        });
     };
 
     useEffect(() => {
@@ -146,6 +205,9 @@ const ParentRollingContainer = () => {
                     flashSelectedAllele('second', 'defense', possibleAlleles.defense, 'skip'),
                 ]);
                 setSelectedParentAlleles(selectedAlleles);
+                setCurrentStage((stage) => {
+                    return { ...stage, animationComplete: true };
+                });
             }
         };
         handleSkipAnimation();
@@ -179,6 +241,21 @@ const ParentRollingContainer = () => {
             setCurrentStage((stage) => {
                 return { ...stage, runRollAnimation: false };
             });
+        }
+
+        if (currentStage.animationComplete && !previousStage.animationComplete) {
+            setGameInfo();
+
+            setTimeout(() => {
+                setOverlay({ text: `PARENT ALLELE SELECTION COMPLETE!`, toggled: true });
+                setTimeout(() => {
+                    setOverlay({ text: ``, toggled: false });
+                    setSlideAwayAnimation(true);
+                    setTimeout(() => {
+                        setStage('child-animation');
+                    }, 1500);
+                }, 1500);
+            }, 1500);
         }
 
         setPreviousStage(currentStage);
@@ -225,28 +302,18 @@ const ParentRollingContainer = () => {
                 setCurrentStage((stage) => {
                     return { ...stage, allele: nextStage, runRollAnimation: true };
                 });
+            } else {
+                setCurrentStage((stage) => {
+                    return { ...stage, animationComplete: true };
+                });
             }
         }
     };
 
     return (
         <>
-            <motion.div
-                layout
-                initial={{ width: '100%' }}
-                animate={{
-                    transition: { duration: 0.5 },
-                }}
-                className='flex justify-center px-6 gap-2'
-            >
-                <ParentRoller
-                    whichParent='first'
-                    currentStage={currentStage}
-                    setCurrentStage={setCurrentStage}
-                    middleColumnVisible={middleColumnVisible}
-                    alleleMap={alleleMaps.first}
-                    skipAnimation={skipAnimation.toggled}
-                />
+            <motion.div layout className='flex justify-center px-6 gap-2 w-full'>
+                <ParentRoller whichParent='first' slideAway={slideAwayAnimation} alleleMap={alleleMaps.first} skipAnimation={skipAnimation.toggled} />
                 <AnimatePresence>
                     {middleColumnVisible && (
                         <motion.div
@@ -274,14 +341,7 @@ const ParentRollingContainer = () => {
                         </motion.div>
                     )}
                 </AnimatePresence>
-                <ParentRoller
-                    whichParent='second'
-                    currentStage={currentStage}
-                    setCurrentStage={setCurrentStage}
-                    middleColumnVisible={middleColumnVisible}
-                    alleleMap={alleleMaps.second}
-                    skipAnimation={skipAnimation.toggled}
-                />
+                <ParentRoller whichParent='second' slideAway={slideAwayAnimation} alleleMap={alleleMaps.second} skipAnimation={skipAnimation.toggled} />
             </motion.div>
             <AnimatePresence>
                 {skipAnimation.button && (
@@ -299,18 +359,6 @@ const ParentRollingContainer = () => {
                         <SkipForward strokeWidth={2.5} />
                         <span>Skip Animation</span>
                     </motion.button>
-                )}
-                {overlay.toggled && (
-                    <motion.div
-                        key='overlay'
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        transition={{ duration: 0.5 }}
-                        className={`absolute inset-0 bg-black bg-opacity-80 flex items-center justify-center p-12`}
-                    >
-                        <div className={`${audiowide.className} text-white text-6xl text-center`}>{overlay.text}</div>
-                    </motion.div>
                 )}
             </AnimatePresence>
         </>

@@ -46,6 +46,18 @@
     animation: gradient 15s ease infinite;
 }
 
+.gradient-red-forward {
+    background: linear-gradient(270deg, #eb1717, #e79797, #f17474);
+    /* background-size: 600% 600%;eb1717
+    animation: gradient 15s ease infinite; */
+}
+
+.gradient-red-backward {
+    background: linear-gradient(270deg, #f17474, #e79797, #eb1717);
+    /* background-size: 600% 600%;eb1717
+    animation: gradient 15s ease infinite; */
+}
+
 .animated-text-gradient-red-full {
     background: linear-gradient(270deg, #f17474, #d24c4c, #ff3d3d);
     color: transparent;
@@ -90,6 +102,26 @@
 }
 .main-green {
     background-color: #53df5f;
+}
+.main-blue {
+    background-color: #537ddf;
+}
+
+.main-dark-red {
+    background-color: #793a3a;
+}
+.main-dark-purple {
+    background-color: #6c3e7f;
+}
+.main-dark-green {
+    background-color: #2b6f30;
+}
+.main-dark-blue {
+    background-color: #2e467e;
+}
+
+.text-main-blue {
+    color: #537ddf;
 }
 
 .image-blur::before {

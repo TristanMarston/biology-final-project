@@ -4,6 +4,7 @@ import { Audiowide, Orbitron } from 'next/font/google';
 import { failToast, useGameContext } from '../../context';
 import { Lock, LockOpen, X } from 'lucide-react';
 import StatsShoppingConfirmModal from './StatsShoppingConfirmModal';
+import { updateGuestProfile } from '@/utils/indexedDB';
 
 const audiowide = Audiowide({ weight: '400', subsets: ['latin'] });
 const orbitronBold = Orbitron({ weight: '800', subsets: ['latin'] });
@@ -14,41 +15,16 @@ const StatsShoppingModal = ({ isOpen, setIsOpen }: { isOpen: boolean; setIsOpen:
     const context = useGameContext();
     if (context === undefined) throw new Error('useContext(GameContext) must be used within a GameContext.Provider');
 
-    const { profile, setProfile } = context;
+    const { profile, setProfile, shopStats } = context;
     const [confirmModalOpen, setConfirmModalOpen] = useState(false);
     const [confirmModalData, setConfirmModalData] = useState<{ allele: string; cost: number; type: string }>({ allele: '', cost: 0, type: 'health' });
-
-    const healthStats = [
-        { quantity: 20, cost: 0 },
-        { quantity: 30, cost: 0 },
-        { quantity: 45, cost: 25 },
-        { quantity: 60, cost: 75 },
-        { quantity: 75, cost: 125 },
-        { quantity: 100, cost: 200 },
-    ];
-    const strengthStats = [
-        { quantity: 25, cost: 0 },
-        { quantity: 50, cost: 0 },
-        { quantity: 90, cost: 25 },
-        { quantity: 115, cost: 75 },
-        { quantity: 130, cost: 125 },
-        { quantity: 150, cost: 200 },
-    ];
-    const defenseStats = [
-        { quantity: 50, cost: 0 },
-        { quantity: 75, cost: 0 },
-        { quantity: 110, cost: 25 },
-        { quantity: 135, cost: 75 },
-        { quantity: 150, cost: 125 },
-        { quantity: 160, cost: 200 },
-    ];
 
     const alleleArray = [
         {
             type: 'health',
             unit: 'HP',
             alleles: profile?.alleles?.health,
-            stats: healthStats,
+            stats: shopStats.health,
             color: 'red',
             letter: 'H',
         },
@@ -56,7 +32,7 @@ const StatsShoppingModal = ({ isOpen, setIsOpen }: { isOpen: boolean; setIsOpen:
             type: 'strength',
             unit: 'DMG',
             alleles: profile?.alleles?.strength,
-            stats: strengthStats,
+            stats: shopStats.strength,
             color: 'purple',
             letter: 'S',
         },
@@ -64,7 +40,7 @@ const StatsShoppingModal = ({ isOpen, setIsOpen }: { isOpen: boolean; setIsOpen:
             type: 'defense',
             unit: 'DEF',
             alleles: profile?.alleles?.defense,
-            stats: defenseStats,
+            stats: shopStats.defense,
             color: 'green',
             letter: 'D',
         },
@@ -163,6 +139,16 @@ const StatsShoppingModal = ({ isOpen, setIsOpen }: { isOpen: boolean; setIsOpen:
                                     ))}
                                 </div>
                             </div>
+                            <button
+                                onClick={async () => {
+                                    const updatedProfile = await updateGuestProfile({
+                                        money: (profile?.money || 0) + 100,
+                                    });
+                                    setProfile(updatedProfile);
+                                }}
+                            >
+                                give me $100
+                            </button>
                         </motion.div>
                     </motion.div>
                     <StatsShoppingConfirmModal isOpen={confirmModalOpen} setIsOpen={setConfirmModalOpen} data={confirmModalData} />
