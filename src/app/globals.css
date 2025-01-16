@@ -30,6 +30,10 @@
     background: linear-gradient(270deg, #53df5f, #d97bfe, #5f9fff) !important;
 }
 
+.default-gradient-full {
+    background: linear-gradient(270deg, #53df5f, #d97bfe, #5f9fff);
+}
+
 .animated-gradient-fast-full {
     background: linear-gradient(270deg, #53df5f, #d97bfe, #5f9fff);
     background-size: 600% 600%;

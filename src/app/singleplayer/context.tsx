@@ -32,6 +32,13 @@ export type Game = {
         defense: number;
         currentTurn: boolean;
     };
+    game: {
+        number: number;
+        gamesPlayed: string[];
+        gamesLeft: string[];
+        selectedGame: string | null;
+        stage: 'not-started' | 'selecting-game' | 'game-selected' | 'game-playing';
+    };
 };
 
 export const failToast = (message: string) => {
@@ -116,6 +123,13 @@ export const GameProvider = ({ children }: any) => {
             strength: 0,
             defense: 0,
             currentTurn: false,
+        },
+        game: {
+            number: 1,
+            gamesPlayed: [],
+            gamesLeft: ['reaction-speed-test', 'target-clicker', 'math-challenge', 'memory-game', 'quick-tap-race', 'word-unscramble', 'trivia-challenge'],
+            selectedGame: null,
+            stage: 'not-started',
         },
     });
     const shopStats = {

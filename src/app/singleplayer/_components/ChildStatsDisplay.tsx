@@ -2,7 +2,6 @@ import { Audiowide, Orbitron } from 'next/font/google';
 import { useGameContext } from '../context';
 import { useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
-import { Stage } from '../page';
 
 const audiowide = Audiowide({ weight: '400', subsets: ['latin'] });
 const orbitronBold = Orbitron({ weight: '800', subsets: ['latin'] });
@@ -13,7 +12,7 @@ const StatsDisplay = ({ character }: { character: 'cpu' | 'player' }) => {
     const context = useGameContext();
     if (context === undefined) throw new Error('useContext(GameContext) must be used within a GameContext.Provider');
 
-    const { selectedParentAlleles, selectedCPUParentAlleles, shopStats, profile, game } = context;
+    const { selectedParentAlleles, selectedCPUParentAlleles, shopStats, profile } = context;
     const [hovered, setHovered] = useState<'health' | 'strength' | 'defense' | 'luck' | null>(null);
     const [statsShown, setStatsShown] = useState<'player' | 'cpu'>(character);
     const alleles = { player: selectedParentAlleles, cpu: selectedCPUParentAlleles };

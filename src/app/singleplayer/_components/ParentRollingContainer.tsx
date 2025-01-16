@@ -142,21 +142,24 @@ const ParentRollingContainer = ({ setOverlay, setStage }: { setOverlay: React.Di
         const cpu = cpuAlleles();
         setSelectedCPUParentAlleles(cpu);
 
-        setGame({
-            player: {
-                healthRemaining: getQuantity(selectedParentAlleles, 'health', 'first') + getQuantity(selectedParentAlleles, 'health', 'second'),
-                health: getQuantity(selectedParentAlleles, 'health', 'first') + getQuantity(selectedParentAlleles, 'health', 'second'),
-                strength: getQuantity(selectedParentAlleles, 'strength', 'first') + getQuantity(selectedParentAlleles, 'strength', 'second'),
-                defense: getQuantity(selectedParentAlleles, 'defense', 'first') + getQuantity(selectedParentAlleles, 'defense', 'second'),
-                currentTurn: false,
-            },
-            cpu: {
-                healthRemaining: getQuantity(cpu, 'health', 'first') + getQuantity(cpu, 'health', 'second'),
-                health: getQuantity(cpu, 'health', 'first') + getQuantity(cpu, 'health', 'second'),
-                strength: getQuantity(cpu, 'strength', 'first') + getQuantity(cpu, 'strength', 'second'),
-                defense: getQuantity(cpu, 'defense', 'first') + getQuantity(cpu, 'defense', 'second'),
-                currentTurn: false,
-            },
+        setGame((prevGame) => {
+            return {
+                ...prevGame,
+                player: {
+                    healthRemaining: getQuantity(selectedParentAlleles, 'health', 'first') + getQuantity(selectedParentAlleles, 'health', 'second'),
+                    health: getQuantity(selectedParentAlleles, 'health', 'first') + getQuantity(selectedParentAlleles, 'health', 'second'),
+                    strength: getQuantity(selectedParentAlleles, 'strength', 'first') + getQuantity(selectedParentAlleles, 'strength', 'second'),
+                    defense: getQuantity(selectedParentAlleles, 'defense', 'first') + getQuantity(selectedParentAlleles, 'defense', 'second'),
+                    currentTurn: false,
+                },
+                cpu: {
+                    healthRemaining: getQuantity(cpu, 'health', 'first') + getQuantity(cpu, 'health', 'second'),
+                    health: getQuantity(cpu, 'health', 'first') + getQuantity(cpu, 'health', 'second'),
+                    strength: getQuantity(cpu, 'strength', 'first') + getQuantity(cpu, 'strength', 'second'),
+                    defense: getQuantity(cpu, 'defense', 'first') + getQuantity(cpu, 'defense', 'second'),
+                    currentTurn: false,
+                },
+            };
         });
     };
 

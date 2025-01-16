@@ -70,24 +70,28 @@ const CharacterFightContainer = ({ stage, setStage }: { stage: Stage; setStage: 
                             height: '50vh',
                             width: '15vw',
                         }}
-                        className=' h-full drop-shadow-2xl scale-x-[-1] mt-[50%]'
+                        className=' h-full drop-shadow-2xl scale-x-[-1] mt-[15vh]'
                     />
-                    {stage === 'initial-animation' && (
-                        <div className='flex flex-col gap-2'>
-                            <button
-                                onClick={() => setStatsQuicklookModalOpen({ open: true, character: 'player' })}
-                                className={`${audiowide.className} w-full text-lg text-white animated-gradient p-3 border-[6px] border-white rounded-xl uppercase hover:scale-105 transition-all cursor-pointer text-nowrap`}
-                            >
-                                STATS
-                            </button>
-                            <button
-                                onClick={() => executeAttack('player')}
-                                className={`${audiowide.className} w-full text-lg text-white animated-gradient p-3 border-[6px] border-white rounded-xl uppercase hover:scale-105 transition-all cursor-pointer text-nowrap`}
-                            >
-                                ATTACK
-                            </button>
-                        </div>
-                    )}
+
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: stage === 'initial-animation' ? 1 : 0 }}
+                        transition={{ duration: 1, ease: 'easeInOut' }}
+                        className='flex flex-col gap-2'
+                    >
+                        <button
+                            onClick={() => setStatsQuicklookModalOpen({ open: true, character: 'player' })}
+                            className={`${audiowide.className} w-full text-lg text-white animated-gradient p-3 border-[6px] border-white rounded-xl uppercase hover:scale-105 transition-all cursor-pointer text-nowrap`}
+                        >
+                            STATS
+                        </button>
+                        <button
+                            onClick={() => executeAttack('player')}
+                            className={`${audiowide.className} w-full text-lg text-white animated-gradient p-3 border-[6px] border-white rounded-xl uppercase hover:scale-105 transition-all cursor-pointer text-nowrap`}
+                        >
+                            ATTACK
+                        </button>
+                    </motion.div>
                 </div>
 
                 {/* <img src='/gene-fighters-character.png' alt='character' className='w-full max-h-[80vh] drop-shadow-2xl scale-x-[-1]' /> */}
