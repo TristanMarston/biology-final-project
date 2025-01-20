@@ -22,7 +22,7 @@ export type AlleleObject = {
 
 type UpdatedData = {
     money?: number;
-    games: Game[];
+    games?: Game[];
     alleles?: AlleleObject;
 };
 
