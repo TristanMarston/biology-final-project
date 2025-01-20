@@ -1,6 +1,6 @@
 import { AnimatePresence, motion } from 'framer-motion';
 import { Audiowide, Orbitron } from 'next/font/google';
-import { Game, useGameContext } from '../context';
+import { availableGames, Game, useGameContext } from '../context';
 import { Stage } from '../page';
 import StatsDisplay from './ChildStatsDisplay';
 import Fight from './Fight';
@@ -13,7 +13,15 @@ const orbitronBold = Orbitron({ weight: '800', subsets: ['latin'] });
 const orbitronSemibold = Orbitron({ weight: '500', subsets: ['latin'] });
 const orbitronLight = Orbitron({ weight: '400', subsets: ['latin'] });
 
-const CharacterFightContainer = ({ stage, setStage }: { stage: Stage; setStage: React.Dispatch<React.SetStateAction<Stage>> }) => {
+const CharacterFightContainer = ({
+    stage,
+    setStage,
+    setGameOverScreenActive,
+}: {
+    stage: Stage;
+    setStage: React.Dispatch<React.SetStateAction<Stage>>;
+    setGameOverScreenActive: React.Dispatch<React.SetStateAction<boolean>>;
+}) => {
     const context = useGameContext();
     if (context === undefined) throw new Error('useContext(GameContext) must be used within a GameContext.Provider');
 
@@ -36,6 +44,13 @@ const CharacterFightContainer = ({ stage, setStage }: { stage: Stage; setStage: 
         const baseDamage = calculateDamage(attacker);
 
         setGame((prevGame) => {
+            const allGamesPlayed = prevGame.game.gamesLeft.length === 0;
+            let alreadyPlayed = { won: 0, lost: 0 };
+            prevGame.game.gameRoundHistory.forEach(({ won, lost }) => {
+                alreadyPlayed.won += won;
+                alreadyPlayed.lost += lost;
+            });
+
             return {
                 ...prevGame,
                 player:
@@ -46,6 +61,16 @@ const CharacterFightContainer = ({ stage, setStage }: { stage: Stage; setStage: 
                     attacker === 'cpu'
                         ? { ...prevGame.cpu, currentTurn: false }
                         : { ...prevGame.cpu, healthRemaining: Math.max(prevGame.cpu.healthRemaining - baseDamage, 0), currentTurn: true },
+                game: {
+                    ...prevGame.game,
+                    selectedGame: null,
+                    gameRound: allGamesPlayed ? prevGame.game.gameRound + 1 : prevGame.game.gameRound,
+                    gameRoundHistory: allGamesPlayed
+                        ? [...prevGame.game.gameRoundHistory, { won: prevGame.game.gamesWon.length - alreadyPlayed.won, lost: prevGame.game.gamesLost.length - alreadyPlayed.lost }]
+                        : [...prevGame.game.gameRoundHistory],
+                    gamesLeft: allGamesPlayed ? availableGames : prevGame.game.gamesLeft,
+                    number: game.game.gamesWon.length + game.game.gamesLost.length + 1,
+                },
             };
         });
     };
@@ -116,7 +141,7 @@ const CharacterFightContainer = ({ stage, setStage }: { stage: Stage; setStage: 
                         )}
                     </AnimatePresence>
                 ) : (
-                    stage === 'initial-animation' && <Fight executeAttack={executeAttack} />
+                    stage === 'initial-animation' && <Fight executeAttack={executeAttack} setGameOverScreenActive={setGameOverScreenActive} />
                 )}
             </motion.div>
             <StatsQuicklookModal isOpen={statsQuicklookModalOpen.open} setIsOpen={setStatsQuicklookModalOpen} character={statsQuicklookModalOpen.character} />

@@ -139,16 +139,6 @@ const StatsShoppingModal = ({ isOpen, setIsOpen }: { isOpen: boolean; setIsOpen:
                                     ))}
                                 </div>
                             </div>
-                            <button
-                                onClick={async () => {
-                                    const updatedProfile = await updateGuestProfile({
-                                        money: (profile?.money || 0) + 100,
-                                    });
-                                    setProfile(updatedProfile);
-                                }}
-                            >
-                                give me $100
-                            </button>
                         </motion.div>
                     </motion.div>
                     <StatsShoppingConfirmModal isOpen={confirmModalOpen} setIsOpen={setConfirmModalOpen} data={confirmModalData} />

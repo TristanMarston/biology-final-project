@@ -1,7 +1,7 @@
 import { AnimatePresence, motion } from 'framer-motion';
 import { Audiowide, Orbitron } from 'next/font/google';
 import { useGameContext } from '../../context';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const audiowide = Audiowide({ weight: '400', subsets: ['latin'] });
 const orbitronBold = Orbitron({ weight: '800', subsets: ['latin'] });
@@ -25,7 +25,7 @@ const GameRollingModal = ({ isOpen, setIsOpen }: { isOpen: boolean; setIsOpen: R
 
     const flashChoices = async () => {
         const selectedIndex = Math.floor(Math.random() * gamesMap.length);
-        console.log(gamesMap[selectedIndex]);
+
         setGame((prevGame) => {
             return {
                 ...prevGame,
@@ -37,7 +37,6 @@ const GameRollingModal = ({ isOpen, setIsOpen }: { isOpen: boolean; setIsOpen: R
         });
 
         const cycles = Math.floor(Math.random() * 5) + 3; // random 3 - 4
-        console.log(cycles);
 
         for (let i = 0; i < cycles; i++) {
             for (let j = 0; j < (i === cycles - 1 ? selectedIndex + 1 : gamesMap.length); j++) {
@@ -56,7 +55,11 @@ const GameRollingModal = ({ isOpen, setIsOpen }: { isOpen: boolean; setIsOpen: R
 
         setGamesMap((prev) => prev.map((game, index) => (index === selectedIndex ? { ...game, flash: true } : game)));
         await sleep(500);
+
+        setGamesMap(game.game.gamesLeft.map((map) => ({ name: map, flash: false })) as GamesMapArray[]);
+
         setGame((prevGame) => {
+            setRollButtonEnabled(true);
             return {
                 ...prevGame,
                 game: {
@@ -66,6 +69,10 @@ const GameRollingModal = ({ isOpen, setIsOpen }: { isOpen: boolean; setIsOpen: R
             };
         });
     };
+
+    useEffect(() => {
+        setGamesMap(game.game.gamesLeft.map((map) => ({ name: map, flash: false })) as GamesMapArray[]);
+    }, [isOpen]);
 
     return (
         <AnimatePresence>
@@ -85,7 +92,7 @@ const GameRollingModal = ({ isOpen, setIsOpen }: { isOpen: boolean; setIsOpen: R
                             className='border-4 border-white gradient-full text-white p-6 rounded-xl w-full max-w-3xl shadow-xl cursor-default relative overflow-hidden'
                         >
                             <div className='relative z-10'>
-                                <h3 className={`${audiowide.className} text-4xl font-bold text-left mb-5`}>MINIGAME DECISION</h3>
+                                <h3 className={`${audiowide.className} text-4xl font-bold text-left mb-5`}>MINIGAME #{game.game.number} DECISION</h3>
                                 <div className='flex flex-col gap-3 mb-3'>
                                     {gamesMap.map(({ name, flash }, index) => (
                                         <div

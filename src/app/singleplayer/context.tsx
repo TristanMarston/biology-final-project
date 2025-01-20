@@ -17,6 +17,11 @@ export type SelectedParentAlleles = {
     second: SelectedAlleles;
 };
 
+export type PastMinigame = {
+    name: string;
+    roundNum: number;
+};
+
 export type Game = {
     player: {
         healthRemaining: number;
@@ -34,10 +39,14 @@ export type Game = {
     };
     game: {
         number: number;
-        gamesPlayed: string[];
+        gameRound: number;
+        gameRoundHistory: { won: number; lost: number }[];
+        gamesWon: PastMinigame[];
+        gamesLost: PastMinigame[];
         gamesLeft: string[];
         selectedGame: string | null;
         stage: 'not-started' | 'selecting-game' | 'game-selected' | 'game-playing';
+        gameWon: 'player' | 'cpu' | 'playing';
     };
 };
 
@@ -57,6 +66,9 @@ export const successToast = (message: string) => {
         className: `${audiowide.className} uppercase text-left !text-white border-4 border-white animated-gradient-full-important text-lg w-full`,
     });
 };
+
+export const availableGames = ['target-clicker', 'trivia-challenge', 'reaction-speed-test', 'math-challenge', 'word-unscramble', 'memory-game'];
+// export const availableGames = ['math-challenge', 'word-unscramble'];
 
 type Context = {
     profile: Profile | null;
@@ -126,10 +138,14 @@ export const GameProvider = ({ children }: any) => {
         },
         game: {
             number: 1,
-            gamesPlayed: [],
-            gamesLeft: ['reaction-speed-test', 'target-clicker', 'math-challenge', 'memory-game', 'quick-tap-race', 'word-unscramble', 'trivia-challenge'],
+            gameRound: 1,
+            gameRoundHistory: [],
+            gamesWon: [],
+            gamesLost: [],
+            gamesLeft: availableGames,
             selectedGame: null,
             stage: 'not-started',
+            gameWon: 'playing',
         },
     });
     const shopStats = {
@@ -171,6 +187,20 @@ export const GameProvider = ({ children }: any) => {
 
         loadProfile();
     }, []);
+
+    useEffect(() => {
+        if ((game.player.healthRemaining <= 0 || game.cpu.healthRemaining <= 0) && game.game.gameWon === 'playing' && game.game.gamesWon.length + game.game.gamesLost.length > 0) {
+            setGame((prev) => {
+                return {
+                    ...prev,
+                    game: {
+                        ...prev.game,
+                        gameWon: game.player.healthRemaining <= 0 ? 'cpu' : game.cpu.healthRemaining <= 0 ? 'player' : 'playing',
+                    },
+                };
+            });
+        }
+    }, [game]);
 
     return (
         <GameContext.Provider
