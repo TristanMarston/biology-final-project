@@ -38,9 +38,9 @@ const StatsQuicklookModal = ({
                             animate={{ scale: 1, rotate: '0deg' }}
                             exit={{ scale: 0, rotate: '0deg' }}
                             onClick={(e) => e.stopPropagation()}
-                            className='text-white w-full max-w-[75vw] shadow-xl cursor-default relative overflow-hidden flex flex-col gap-3'
+                            className='text-white w-full max-w-[95vw] width-ipad:max-w-[90vw] width-laptop:max-w-[85vw] width-desktop:max-w-[75vw] shadow-xl cursor-default relative overflow-hidden flex flex-col gap-3'
                         >
-                            <StatsDisplay character={character} />
+                            <StatsDisplay character={character} from='modal' />
                             <button
                                 onClick={() =>
                                     setIsOpen((prev) => {

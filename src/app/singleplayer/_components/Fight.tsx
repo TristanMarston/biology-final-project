@@ -115,12 +115,6 @@ const Fight = ({
                         >
                             STATS
                         </button>
-                        <button
-                            onClick={() => executeAttack('cpu')}
-                            className={`${audiowide.className} w-full text-lg text-white animated-gradient p-3 border-[6px] border-white rounded-xl uppercase hover:scale-105 transition-all cursor-pointer text-nowrap`}
-                        >
-                            ATTACK
-                        </button>
                     </div>
                 </motion.div>
             </AnimatePresence>

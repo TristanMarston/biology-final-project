@@ -315,7 +315,7 @@ const ParentRollingContainer = ({ setOverlay, setStage }: { setOverlay: React.Di
 
     return (
         <>
-            <motion.div layout className='flex justify-center px-6 gap-2 w-full'>
+            <motion.div layout className='flex justify-center px-4 laptop:px-6 h-full overflow-clip gap-2 w-full'>
                 <ParentRoller whichParent='first' slideAway={slideAwayAnimation} alleleMap={alleleMaps.first} skipAnimation={skipAnimation.toggled} />
                 <AnimatePresence>
                     {middleColumnVisible && (
@@ -332,12 +332,12 @@ const ParentRollingContainer = ({ setOverlay, setStage }: { setOverlay: React.Di
                                         return { ...stage, started: true };
                                     })
                                 }
-                                className={`${audiowide.className} text-lg text-white animated-gradient p-3 border-[6px] border-white rounded-xl uppercase hover:scale-105 transition-all cursor-pointer text-nowrap`}
+                                className={`${audiowide.className} text-base width-laptop:text-lg text-white animated-gradient p-2 width-ipad:p-3 border-[6px] border-white rounded-xl uppercase hover:scale-105 transition-all cursor-pointer text-nowrap`}
                             >
                                 Ready to begin?
                             </button>
                             <button
-                                className={`${audiowide.className} text-lg text-white animated-gradient p-3 border-[6px] border-white rounded-xl uppercase hover:scale-105 transition-all cursor-pointer text-nowrap`}
+                                className={`${audiowide.className} text-base width-laptop:text-lg text-white animated-gradient p-2 width-ipad:p-3 border-[6px] border-white rounded-xl uppercase hover:scale-105 transition-all cursor-pointer text-nowrap`}
                             >
                                 Confused?
                             </button>

@@ -78,7 +78,7 @@ const CharacterFightContainer = ({
     return (
         <>
             <motion.div
-                className='flex gap-20 items-center w-full justify-between h-full px-8 max-h-[60vh] relative'
+                className='flex gap-10 width-ipad:gap-14 width-laptop:gap-20 items-center w-full justify-between h-full px-8 max-h-[60vh] relative'
                 initial={{ y: 750 }}
                 animate={{ y: 0 }}
                 transition={{ duration: 1.25, ease: 'easeInOut' }}
@@ -110,12 +110,6 @@ const CharacterFightContainer = ({
                         >
                             STATS
                         </button>
-                        <button
-                            onClick={() => executeAttack('player')}
-                            className={`${audiowide.className} w-full text-lg text-white animated-gradient p-3 border-[6px] border-white rounded-xl uppercase hover:scale-105 transition-all cursor-pointer text-nowrap`}
-                        >
-                            ATTACK
-                        </button>
                     </motion.div>
                 </div>
 
@@ -125,15 +119,15 @@ const CharacterFightContainer = ({
                     <AnimatePresence>
                         {stage === 'child-animation' && (
                             <motion.div
-                                className='py-3 px-8 w-full h-full flex flex-col gap-3'
+                                className='py-3 px-5 width-laptop:px-8 w-full h-full flex flex-col gap-3'
                                 initial={{ opacity: 1, x: 0 }}
                                 exit={{ opacity: 0.6, x: '140%' }}
                                 transition={{ duration: 1, ease: 'easeInOut' }}
                             >
-                                <StatsDisplay character='player' />
+                                <StatsDisplay character='player' from='display' />
                                 <button
                                     onClick={() => setStage('game-started')}
-                                    className={`${audiowide.className} flex justify-center text-2xl text-white animated-gradient border-[12px] rounded-[56px] py-3 px-8 border-white drop-shadow-2xl w-full h-full hover:scale-105 hover:brightness-125 transition-all`}
+                                    className={`${audiowide.className} flex justify-center text-xl width-laptop:text-2xl text-white animated-gradient border-[12px] rounded-[56px] py-3 px-8 border-white drop-shadow-2xl w-full h-full hover:scale-105 hover:brightness-125 transition-all`}
                                 >
                                     BEGIN BATTLE
                                 </button>

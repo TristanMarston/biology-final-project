@@ -21,7 +21,7 @@ const HealthBar = ({ calculateDamage }: { calculateDamage: (attacker: 'cpu' | 'p
 
     return (
         <motion.div
-            className='w-[95%] left-1/2 top-[5%] -translate-x-1/2 -translate-y-1/2 h-6 grid grid-cols-2 gap-2 absolute rounded-full'
+            className='w-[95%] left-1/2 top-[10%] width-laptop:top-[5%] -translate-x-1/2 -translate-y-1/2 h-6 grid grid-cols-2 gap-2 absolute rounded-full'
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 1, delay: 0.5, ease: 'easeInOut' }}

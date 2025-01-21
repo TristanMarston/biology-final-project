@@ -120,16 +120,16 @@ const TargetClicker = ({ setIsOpen }: { setIsOpen: React.Dispatch<React.SetState
         <>
             <div className='w-full h-full flex flex-col gap-3'>
                 <span className='flex justify-between items-start'>
-                    <h3 className={`${audiowide.className} text-4xl font-bold text-left mb-5 uppercase`}>{game.game.selectedGame?.replaceAll('-', ' ')}</h3>
+                    <h3 className={`${audiowide.className} text-3xl width-laptop:text-4xl font-bold text-left mb-5 uppercase`}>{game.game.selectedGame?.replaceAll('-', ' ')}</h3>
                     {targetGame.stage !== 'instructions' && (
                         <div className={`${orbitronSemibold.className} flex gap-4`}>
                             <span className='flex items-center gap-2'>
-                                <Clock className='w-10 h-10' />
-                                <span className='text-lg'>{formatMillisecondsToDuration(targetGame.millisecondsLeft)}</span>
+                                <Clock className='w-7 h-7 width-laptop:w-10 width-laptop:h-10' />
+                                <span className='text-base width-laptop:text-lg'>{formatMillisecondsToDuration(targetGame.millisecondsLeft)}</span>
                             </span>
                             <span className='flex items-center gap-2'>
-                                <Target className='w-10 h-10' />
-                                <span className='text-lg'>{targetGame.targetsClicked}</span>
+                                <Target className='w-7 h-7 width-laptop:w-10 width-laptop:h-10' />
+                                <span className='text-base width-laptop:text-lg'>{targetGame.targetsClicked}</span>
                             </span>
                         </div>
                     )}
@@ -138,14 +138,14 @@ const TargetClicker = ({ setIsOpen }: { setIsOpen: React.Dispatch<React.SetState
                     {targetGame.stage === 'instructions' && (
                         <div className='w-full h-full flex flex-col gap-6 items-center justify-center'>
                             <span className='flex'>
-                                <Target className='mt-4 mr-8 text-white w-24 h-24 bg-[rgba(255,255,255,.4)] rounded-full' strokeWidth={2} />
-                                <Target className='mt-7 mr-2 text-white w-24 h-24 bg-[rgba(255,255,255,.4)] rounded-full' strokeWidth={2} />
-                                <Target className='-mt-3 mr-6 text-white w-24 h-24 bg-[rgba(255,255,255,.4)] rounded-full' strokeWidth={2} />
-                                <Target className='mt-7 mr-4 text-white w-24 h-24 bg-[rgba(255,255,255,.4)] rounded-full' strokeWidth={2} />
-                                <Target className='mt-3 mr-4 text-white w-24 h-24 bg-[rgba(255,255,255,.4)] rounded-full' strokeWidth={2} />
-                                <Target className='-mt-2 text-white w-24 h-24 bg-[rgba(255,255,255,.4)] rounded-full' strokeWidth={2} />
+                                <Target className='mt-4 mr-8 text-white w-20 h-20 width-laptop:w-24 width-laptop:h-24 bg-[rgba(255,255,255,.4)] rounded-full' strokeWidth={2} />
+                                <Target className='mt-7 mr-2 text-white w-20 h-20 width-laptop:w-24 width-laptop:h-24 bg-[rgba(255,255,255,.4)] rounded-full' strokeWidth={2} />
+                                <Target className='-mt-3 mr-6 text-white w-20 h-20 width-laptop:w-24 width-laptop:h-24 bg-[rgba(255,255,255,.4)] rounded-full' strokeWidth={2} />
+                                <Target className='mt-7 mr-4 text-white w-20 h-20 width-laptop:w-24 width-laptop:h-24 bg-[rgba(255,255,255,.4)] rounded-full' strokeWidth={2} />
+                                <Target className='mt-3 mr-4 text-white w-20 h-20 width-laptop:w-24 width-laptop:h-24 bg-[rgba(255,255,255,.4)] rounded-full' strokeWidth={2} />
+                                <Target className='-mt-2 text-white w-20 h-20 width-laptop:w-24 width-laptop:h-24 bg-[rgba(255,255,255,.4)] rounded-full' strokeWidth={2} />
                             </span>
-                            <span className={`${orbitronSemibold.className} w-[60%] text-center text-lg flex flex-col gap-1.5`}>
+                            <span className={`${orbitronSemibold.className} w-[60%] text-center text-base width-laptop:text-lg flex flex-col gap-1.5`}>
                                 <span>In this minigame, you will have to click targets that appear in random positions on the page.</span>
                                 <span>
                                     You will have <span className={orbitronBold.className}>30 seconds</span>, and you must click at least{' '}
@@ -161,7 +161,7 @@ const TargetClicker = ({ setIsOpen }: { setIsOpen: React.Dispatch<React.SetState
                                         };
                                     })
                                 }
-                                className={`${orbitronBold.className} px-12 py-4 text-2xl rounded-lg border-4 border-[#5b8ad0] shadow-[0px_10px_0px_5px_#5b8ad0] hover:shadow-none hover:translate-y-[10px] transition-all duration-125`}
+                                className={`${orbitronBold.className} px-10 py-4 text-xl width-laptop:px-12 width-laptop:text-2xl rounded-lg border-4 border-[#5b8ad0] shadow-[0px_10px_0px_5px_#5b8ad0] hover:shadow-none hover:translate-y-[10px] transition-all duration-125`}
                             >
                                 BEGIN!
                             </button>
@@ -177,15 +177,15 @@ const TargetClicker = ({ setIsOpen }: { setIsOpen: React.Dispatch<React.SetState
                             initial={{ scale: 0 }}
                             animate={{ scale: 1 }}
                             transition={{ duration: 0.5, ease: 'easeInOut' }}
-                            className='w-full h-full flex flex-col items-center justify-center gap-4 select-none'
+                            className='w-full h-full flex flex-col items-center justify-center gap-3 width-laptop:gap-4 select-none'
                         >
                             {targetGame.targetsClicked >= threshold ? (
-                                <Crown className='w-72 h-72 text-white' strokeWidth={3} />
+                                <Crown className='w-36 h-36 width-laptop:w-72 width-laptop:h-72 text-white' strokeWidth={3} />
                             ) : (
-                                <Frown className='w-72 h-72 text-white' strokeWidth={3} />
+                                <Frown className='w-36 h-36 width-laptop:w-72 width-laptop:h-72 text-white' strokeWidth={3} />
                             )}
-                            <span className={`${orbitronSemibold.className} w-[60%] text-center text-lg flex flex-col gap-1.5`}>
-                                <span className='text-xl'>You {targetGame.targetsClicked >= threshold ? 'won' : 'lost'}!</span>
+                            <span className={`${orbitronSemibold.className} w-[65%] text-center text-base width-laptop:text-lg flex flex-col gap-1.5`}>
+                                <span className='text-lg width-laptop:text-xl'>You {targetGame.targetsClicked >= threshold ? 'won' : 'lost'}!</span>
                                 <span>In 30 seconds, you managed to click {targetGame.targetsClicked} targets!</span>
                                 <span>
                                     {targetGame.targetsClicked >= threshold
@@ -195,7 +195,7 @@ const TargetClicker = ({ setIsOpen }: { setIsOpen: React.Dispatch<React.SetState
                             </span>
                             <button
                                 onClick={() => setIsOpen(false)}
-                                className={`${orbitronBold.className} px-12 py-4 text-2xl rounded-lg border-4 border-[#5b8ad0] shadow-[0px_10px_0px_5px_#5b8ad0] hover:shadow-none hover:translate-y-[10px] transition-all duration-125`}
+                                className={`${orbitronBold.className} px-10 py-4 text-xl width-laptop:px-12 width-laptop:text-2xl rounded-lg border-4 border-[#5b8ad0] shadow-[0px_10px_0px_5px_#5b8ad0] hover:shadow-none hover:translate-y-[10px] transition-all duration-125`}
                             >
                                 {targetGame.targetsClicked >= threshold ? 'ATTACK!' : 'CONCEDE'}
                             </button>

@@ -279,7 +279,7 @@ const WordUnscramble = ({ setIsOpen }: { setIsOpen: React.Dispatch<React.SetStat
         <>
             <div className='w-full h-full flex flex-col gap-3'>
                 <span className='flex justify-between items-start relative'>
-                    <h3 className={`${audiowide.className} text-4xl font-bold text-left mb-5 uppercase`}>{game.game.selectedGame?.replaceAll('-', ' ')}</h3>
+                    <h3 className={`${audiowide.className} text-3xl width-laptop:text-4xl font-bold text-left mb-5 uppercase`}>{game.game.selectedGame?.replaceAll('-', ' ')}</h3>
                     {unscrambleGame.stage !== 'instructions' && (
                         <div className={`${orbitronSemibold.className} flex flex-col absolute right-0`}>
                             <span className='flex gap-2'>
@@ -298,34 +298,46 @@ const WordUnscramble = ({ setIsOpen }: { setIsOpen: React.Dispatch<React.SetStat
                 </span>
                 <AnimatePresence>
                     {unscrambleGame.stage === 'instructions' && (
-                        <div className='w-full h-full flex flex-col gap-6 items-center justify-center'>
+                        <div className='w-full h-full flex flex-col gap-4 width-laptop:gap-6 items-center justify-center'>
                             <span className='flex'>
-                                <span className={`${nunitoBold.className} text-6xl grid place-items-center mt-4 mr-8 text-white w-24 h-24 bg-[rgba(255,255,255,.4)] rounded-full p-4`}>
+                                <span
+                                    className={`${nunitoBold.className} text-5xl width-laptop:text-6xl grid place-items-center mt-4 mr-8 text-white w-20 h-20 width-laptop:w-24 width-laptop:h-24 bg-[rgba(255,255,255,.4)] rounded-full p-3 width-laptop:p-4`}
+                                >
                                     A
                                 </span>
-                                <span className={`${nunitoBold.className} text-6xl grid place-items-center mt-7 mr-2 text-white w-24 h-24 bg-[rgba(255,255,255,.4)] rounded-full p-4`}>
+                                <span
+                                    className={`${nunitoBold.className} text-5xl width-laptop:text-6xl grid place-items-center mt-7 mr-2 text-white w-20 h-20 width-laptop:w-24 width-laptop:h-24 bg-[rgba(255,255,255,.4)] rounded-full p-3 width-laptop:p-4`}
+                                >
                                     B
                                 </span>
-                                <span className={`${nunitoBold.className} text-6xl grid place-items-center -mt-3 mr-6 text-white w-24 h-24 bg-[rgba(255,255,255,.4)] rounded-full p-4`}>
+                                <span
+                                    className={`${nunitoBold.className} text-5xl width-laptop:text-6xl grid place-items-center -mt-3 mr-6 text-white w-20 h-20 width-laptop:w-24 width-laptop:h-24 bg-[rgba(255,255,255,.4)] rounded-full p-3 width-laptop:p-4`}
+                                >
                                     C
                                 </span>
-                                <span className={`${nunitoBold.className} text-6xl grid place-items-center mt-7 mr-4 text-white w-24 h-24 bg-[rgba(255,255,255,.4)] rounded-full p-4`}>
+                                <span
+                                    className={`${nunitoBold.className} text-5xl width-laptop:text-6xl grid place-items-center mt-7 mr-4 text-white w-20 h-20 width-laptop:w-24 width-laptop:h-24 bg-[rgba(255,255,255,.4)] rounded-full p-3 width-laptop:p-4`}
+                                >
                                     E
                                 </span>
-                                <span className={`${nunitoBold.className} text-6xl grid place-items-center mt-3 mr-4 text-white w-24 h-24 bg-[rgba(255,255,255,.4)] rounded-full p-4`}>
+                                <span
+                                    className={`${nunitoBold.className} text-5xl width-laptop:text-6xl grid place-items-center mt-3 mr-4 text-white w-20 h-20 width-laptop:w-24 width-laptop:h-24 bg-[rgba(255,255,255,.4)] rounded-full p-3 width-laptop:p-4`}
+                                >
                                     F
                                 </span>
-                                <span className={`${nunitoBold.className} text-6xl grid place-items-center -mt-2 text-white w-24 h-24 bg-[rgba(255,255,255,.4)] rounded-full p-4`}>
+                                <span
+                                    className={`${nunitoBold.className} text-5xl width-laptop:text-6xl grid place-items-center -mt-2 text-white w-20 h-20 width-laptop:w-24 width-laptop:h-24 bg-[rgba(255,255,255,.4)] rounded-full p-3 width-laptop:p-4`}
+                                >
                                     D
                                 </span>
                             </span>
-                            <span className={`${orbitronSemibold.className} w-[60%] text-center text-lg flex flex-col gap-1.5`}>
+                            <span className={`${orbitronSemibold.className} width-laptop:w-[70%] w-[85%] text-center text-base width-laptop:text-lg flex flex-col gap-1.5`}>
                                 <span>In this minigame, you will have to unscramble various biology words.</span>
                                 <span>
                                     There will be {numQuestions} questions. You will have <span className={orbitronBold.className}>{timePerQuestion / 1000} seconds</span> for each
-                                    question, and you must get at least {threshold} of the questions correct.{' '}
+                                    question, and you must get at least {threshold} of the questions correct. However, you are given 3 hints, which reveal the first 3 letters of the
+                                    unscrambled word. Use them wisely!
                                 </span>
-                                <span>However, you are given 3 hints, which reveal the first 3 letters of the unscrambled word. Use them wisely!</span>
                                 <span>If you fail to get {threshold} questions correct, the CPU will take your attack!</span>
                             </span>
                             <button
@@ -345,7 +357,7 @@ const WordUnscramble = ({ setIsOpen }: { setIsOpen: React.Dispatch<React.SetStat
                                         } as UnscrambleGame;
                                     });
                                 }}
-                                className={`${orbitronBold.className} px-12 py-4 text-2xl rounded-lg border-4 border-[#5b8ad0] shadow-[0px_10px_0px_5px_#5b8ad0] hover:shadow-none hover:translate-y-[10px] transition-all duration-125`}
+                                className={`${orbitronBold.className} px-10 py-4 text-xl width-laptop:px-12 width-laptop:text-2xl rounded-lg border-4 border-[#5b8ad0] shadow-[0px_10px_0px_5px_#5b8ad0] hover:shadow-none hover:translate-y-[10px] transition-all duration-125`}
                             >
                                 BEGIN!
                             </button>
@@ -357,7 +369,7 @@ const WordUnscramble = ({ setIsOpen }: { setIsOpen: React.Dispatch<React.SetStat
                                 initial={{ scale: 1 }}
                                 animate={{ scale: fadeQuestion ? 0 : 1 }}
                                 transition={{ duration: 0.5, ease: 'easeInOut' }}
-                                className='h-full w-3/4 flex flex-col justify-center items-center gap-8'
+                                className='h-full w-3/4 flex flex-col justify-center items-center gap-5 width-laptop:gap-8'
                             >
                                 <div
                                     className={`${nunitoBold.className} ${
@@ -366,11 +378,11 @@ const WordUnscramble = ({ setIsOpen }: { setIsOpen: React.Dispatch<React.SetStat
                                             : correctAnswer === 'incorrect'
                                             ? 'bg-red-400 bg-opacity-80'
                                             : 'bg-[rgba(255,255,255,.4)]'
-                                    } text-white w-32 h-32 border-[6px] shadow-2xl border-transparent rounded-full grid place-items-center text-7xl relative transition-all`}
+                                    } text-white w-28 h-28 text-6xl width-laptop:w-32 width-laptop:h-32 width-laptop:text-7xl border-[6px] shadow-2xl border-transparent rounded-full grid place-items-center relative transition-all`}
                                 >
                                     <span>{unscrambleGame.questionNum}</span>
                                     <div
-                                        className='absolute -top-[6px] -left-[6px] w-32 h-32 rounded-full z-10'
+                                        className='absolute -top-[6px] -left-[6px] w-28 h-28 width-laptop:w-32 width-laptop:h-32 rounded-full z-10'
                                         style={{
                                             background: `conic-gradient(transparent ${100 - (unscrambleGame.millisecondsLeft / timePerQuestion) * 100}%, #fff ${
                                                 100 - (unscrambleGame.millisecondsLeft / timePerQuestion) * 100
@@ -380,7 +392,7 @@ const WordUnscramble = ({ setIsOpen }: { setIsOpen: React.Dispatch<React.SetStat
                                         }}
                                     ></div>
                                 </div>
-                                <h4 className={`${orbitronBold.className} text-3xl text-center`}>
+                                <h4 className={`${orbitronBold.className} text-2xl width-laptop:text-3xl text-center`}>
                                     {Array.from(unscrambleGame.currentQuestion.scrambledWord).map((letter, index) => {
                                         return (
                                             <span
@@ -419,10 +431,10 @@ const WordUnscramble = ({ setIsOpen }: { setIsOpen: React.Dispatch<React.SetStat
                                                         }
                                                     }
                                                 }}
-                                                className={`${orbitronBold.className} outline-none flex-1 text-xl w-full bg-white bg-opacity-80 rounded-full shadow-lg border-4 border-[#5b8ad0] py-4 text-center text-[#5b8ad0] resize-none`}
+                                                className={`${orbitronBold.className} outline-none flex-1 text-lg py-2.5 width-laptop:text-xl width-laptop:py-4 w-full bg-white bg-opacity-80 rounded-full shadow-lg border-4 border-[#5b8ad0] text-center text-[#5b8ad0] resize-none`}
                                             ></textarea>
                                             <div
-                                                className='absolute left-5 w-8 h-8 cursor-pointer'
+                                                className='absolute left-5 w-6 h-6 width-laptop:w-8 width-laptop:h-8 cursor-pointer'
                                                 onClick={() => {
                                                     if (unscrambleGame.hintsLeft > 0 && !unscrambleGame.currentQuestion?.hintUsed) {
                                                         setUnscrambleGame((prev) => {
@@ -440,9 +452,9 @@ const WordUnscramble = ({ setIsOpen }: { setIsOpen: React.Dispatch<React.SetStat
                                                 }}
                                             >
                                                 <div className='relative w-full h-full'>
-                                                    <Lightbulb className='text-[#5b8ad0] w-8 h-8 absolute' />
+                                                    <Lightbulb className='text-[#5b8ad0] w-6 h-6 width-laptop:w-8 width-laptop:h-8 absolute' />
                                                     <div
-                                                        className={`${orbitronSemibold.className} text-[10px] absolute w-4 h-4 rounded-full grid place-items-center shadow-xl -right-2 -bottom-2 bg-[#5b8ad0]`}
+                                                        className={`${orbitronSemibold.className} text-[8px] width-laptop:text-[10px] absolute w-3 h-3 width-laptop:w-4 width-laptop:h-4 rounded-full grid place-items-center shadow-xl -right-2 -bottom-2 bg-[#5b8ad0]`}
                                                     >
                                                         {unscrambleGame.hintsLeft}
                                                     </div>
@@ -452,7 +464,7 @@ const WordUnscramble = ({ setIsOpen }: { setIsOpen: React.Dispatch<React.SetStat
                                     </div>
                                     <button
                                         type='submit'
-                                        className={`${orbitronBold.className} px-12 py-4 text-2xl rounded-lg border-4 border-[#5b8ad0] shadow-[0px_10px_0px_5px_#5b8ad0] hover:shadow-none hover:translate-y-[10px] transition-all duration-125`}
+                                        className={`${orbitronBold.className} px-10 py-4 text-xl width-laptop:px-12 width-laptop:text-2xl rounded-lg border-4 border-[#5b8ad0] shadow-[0px_10px_0px_5px_#5b8ad0] hover:shadow-none hover:translate-y-[10px] transition-all duration-125`}
                                     >
                                         SUBMIT
                                     </button>
@@ -467,9 +479,13 @@ const WordUnscramble = ({ setIsOpen }: { setIsOpen: React.Dispatch<React.SetStat
                             transition={{ duration: 0.5, ease: 'easeInOut' }}
                             className='w-full h-full flex flex-col items-center justify-center gap-4 select-none'
                         >
-                            {unscrambleGame.gameWon ? <Crown className='w-72 h-72 text-white' strokeWidth={3} /> : <Frown className='w-72 h-72 text-white' strokeWidth={3} />}
-                            <span className={`${orbitronSemibold.className} w-[60%] text-center text-lg flex flex-col gap-1.5`}>
-                                <span className='text-xl'>You {unscrambleGame.gameWon ? 'won' : 'lost'}!</span>
+                            {unscrambleGame.gameWon ? (
+                                <Crown className='w-36 h-36 width-laptop:w-72 width-laptop:h-72 text-white' strokeWidth={3} />
+                            ) : (
+                                <Frown className='w-36 h-36 width-laptop:w-72 width-laptop:h-72 text-white' strokeWidth={3} />
+                            )}
+                            <span className={`${orbitronSemibold.className} w-[65%] text-center text-base width-laptop:text-lg flex flex-col gap-1.5`}>
+                                <span className='text-lg width-laptop:text-xl'>You {unscrambleGame.gameWon ? 'won' : 'lost'}!</span>
                                 <span>
                                     You got {unscrambleGame.quizStatus.filter((status) => status === 'correct').length} out of {numQuestions} questions correct!
                                 </span>
@@ -481,7 +497,7 @@ const WordUnscramble = ({ setIsOpen }: { setIsOpen: React.Dispatch<React.SetStat
                             </span>
                             <button
                                 onClick={() => setIsOpen(false)}
-                                className={`${orbitronBold.className} px-12 py-4 text-2xl rounded-lg border-4 border-[#5b8ad0] shadow-[0px_10px_0px_5px_#5b8ad0] hover:shadow-none hover:translate-y-[10px] transition-all duration-125`}
+                                className={`${orbitronBold.className} px-10 py-4 text-xl width-laptop:px-12 width-laptop:text-2xl rounded-lg border-4 border-[#5b8ad0] shadow-[0px_10px_0px_5px_#5b8ad0] hover:shadow-none hover:translate-y-[10px] transition-all duration-125`}
                             >
                                 {unscrambleGame.gameWon ? 'ATTACK!' : 'CONCEDE'}
                             </button>

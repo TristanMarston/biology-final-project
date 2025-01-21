@@ -123,7 +123,7 @@ const ReactionSpeedTest = ({ setIsOpen }: { setIsOpen: React.Dispatch<React.SetS
         <>
             <div className='w-full h-full flex flex-col gap-3'>
                 <span className='flex justify-between items-start'>
-                    <h3 className={`${audiowide.className} text-4xl font-bold text-left mb-5 uppercase`}>{game.game.selectedGame?.replaceAll('-', ' ')}</h3>
+                    <h3 className={`${audiowide.className} text-3xl width-laptop:text-4xl font-bold text-left mb-5 uppercase`}>{game.game.selectedGame?.replaceAll('-', ' ')}</h3>
                     {/* {reactionSpeedGame.stage !== 'instructions' && (
                         <div className={`${orbitronSemibold.className} flex gap-4`}>
                             <span className='flex items-center gap-2'>
@@ -141,16 +141,15 @@ const ReactionSpeedTest = ({ setIsOpen }: { setIsOpen: React.Dispatch<React.SetS
                     {reactionSpeedGame.stage === 'instructions' && (
                         <div className='w-full h-full flex flex-col gap-6 items-center justify-center'>
                             <span className='flex'>
-                                <ChevronsUp className='mt-4 mr-8 text-white w-24 h-24 bg-[rgba(255,255,255,.4)] rounded-full' strokeWidth={2} />
-                                <ChevronsUp className='mt-7 mr-2 text-white w-24 h-24 bg-[rgba(255,255,255,.4)] rounded-full' strokeWidth={2} />
-                                <ChevronsUp className='-mt-3 mr-6 text-white w-24 h-24 bg-[rgba(255,255,255,.4)] rounded-full' strokeWidth={2} />
-                                <ChevronsUp className='mt-7 mr-4 text-white w-24 h-24 bg-[rgba(255,255,255,.4)] rounded-full' strokeWidth={2} />
-                                <ChevronsUp className='mt-3 mr-4 text-white w-24 h-24 bg-[rgba(255,255,255,.4)] rounded-full' strokeWidth={2} />
-                                <ChevronsUp className='-mt-2 text-white w-24 h-24 bg-[rgba(255,255,255,.4)] rounded-full' strokeWidth={2} />
+                                <ChevronsUp className='mt-4 mr-8 text-white w-20 h-20 width-laptop:w-24 width-laptop:h-24 bg-[rgba(255,255,255,.4)] rounded-full' strokeWidth={2} />
+                                <ChevronsUp className='mt-7 mr-2 text-white w-20 h-20 width-laptop:w-24 width-laptop:h-24 bg-[rgba(255,255,255,.4)] rounded-full' strokeWidth={2} />
+                                <ChevronsUp className='-mt-3 mr-6 text-white w-20 h-20 width-laptop:w-24 width-laptop:h-24 bg-[rgba(255,255,255,.4)] rounded-full' strokeWidth={2} />
+                                <ChevronsUp className='mt-7 mr-4 text-white w-20 h-20 width-laptop:w-24 width-laptop:h-24 bg-[rgba(255,255,255,.4)] rounded-full' strokeWidth={2} />
+                                <ChevronsUp className='mt-3 mr-4 text-white w-20 h-20 width-laptop:w-24 width-laptop:h-24 bg-[rgba(255,255,255,.4)] rounded-full' strokeWidth={2} />
+                                <ChevronsUp className='-mt-2 text-white w-20 h-20 width-laptop:w-24 width-laptop:h-24 bg-[rgba(255,255,255,.4)] rounded-full' strokeWidth={2} />
                             </span>
-                            <span className={`${orbitronSemibold.className} w-[60%] text-center text-lg flex flex-col gap-1.5`}>
-                                <span>In this minigame, you will have to demonstrate your reaction speed!</span>
-                                <span>As soon as the red box turns green, click the box as fast as possible!</span>
+                            <span className={`${orbitronSemibold.className} width-laptop:w-[70%] w-[75%] text-center text-base width-laptop:text-lg flex flex-col gap-1.5`}>
+                                <span>In this minigame, you will have to demonstrate your reaction speed! As soon as the red box turns green, click the box as fast as possible!</span>
                                 <span>
                                     To win the game, you must have an average reaction speed of <span className={orbitronBold.className}>at most {threshold}ms</span> across 5 trials. If
                                     your average time is above this threshold, you will forfeit your attack to the CPU!
@@ -165,7 +164,7 @@ const ReactionSpeedTest = ({ setIsOpen }: { setIsOpen: React.Dispatch<React.SetS
                                         };
                                     })
                                 }
-                                className={`${orbitronBold.className} px-12 py-4 text-2xl rounded-lg border-4 border-[#5b8ad0] shadow-[0px_10px_0px_5px_#5b8ad0] hover:shadow-none hover:translate-y-[10px] transition-all duration-125`}
+                                className={`${orbitronBold.className} px-10 py-4 text-xl width-laptop:px-12 width-laptop:text-2xl rounded-lg border-4 border-[#5b8ad0] shadow-[0px_10px_0px_5px_#5b8ad0] hover:shadow-none hover:translate-y-[10px] transition-all duration-125`}
                             >
                                 BEGIN!
                             </button>
@@ -252,27 +251,27 @@ const ReactionSpeedTest = ({ setIsOpen }: { setIsOpen: React.Dispatch<React.SetS
                                         : reactionSpeedGame.currentTrial.stage === 'clickable'
                                         ? 'bg-green-400 cursor-pointer'
                                         : 'bg-transparent cursor-pointer'
-                                } border-4 border-white rounded-2xl shadow-2xl w-full h-full flex flex-col items-center justify-center gap-6 text-xl`}
+                                } border-4 border-white rounded-2xl shadow-2xl w-full h-full flex flex-col items-center justify-center gap-4 width-laptop:gap-6 text-xl`}
                             >
                                 {reactionSpeedGame.currentTrial !== null ? (
                                     reactionSpeedGame.currentTrial.stage === 'not-started' ? (
                                         <>
-                                            <h3 className={`${orbitronBold.className} text-7xl`}>Ready?</h3>
+                                            <h3 className={`${orbitronBold.className} text-6xl width-laptop:text-7xl`}>Ready?</h3>
                                             <p>Click the screen to begin the first trial!</p>
                                         </>
                                     ) : reactionSpeedGame.currentTrial.stage === 'waiting' ? (
-                                        <h3 className={`${orbitronBold.className} text-7xl`}>Wait for it...</h3>
+                                        <h3 className={`${orbitronBold.className} text-6xl width-laptop:text-7xl`}>Wait for it...</h3>
                                     ) : reactionSpeedGame.currentTrial.stage === 'clickable' ? (
-                                        <h3 className={`${orbitronBold.className} text-7xl`}>Click!</h3>
+                                        <h3 className={`${orbitronBold.className} text-6xl width-laptop:text-7xl`}>Click!</h3>
                                     ) : reactionSpeedGame.currentTrial.stage === 'clicked' ? (
                                         <>
-                                            <h3 className={`${orbitronBold.className} text-7xl`}>{reactionSpeedGame.currentTrial.clickableTime}ms</h3>
+                                            <h3 className={`${orbitronBold.className} text-6xl width-laptop:text-7xl`}>{reactionSpeedGame.currentTrial.clickableTime}ms</h3>
                                             <p>Click the screen whenever you&apos;re for the next attempt.</p>
                                         </>
                                     ) : (
                                         reactionSpeedGame.currentTrial.stage === 'clicked-too-fast' && (
                                             <>
-                                                <h3 className={`${orbitronBold.className} text-7xl`}>Too soon!</h3>
+                                                <h3 className={`${orbitronBold.className} text-6xl width-laptop:text-7xl`}>Too soon!</h3>
                                                 <p>Click the screen to restart.</p>
                                             </>
                                         )
@@ -326,11 +325,15 @@ const ReactionSpeedTest = ({ setIsOpen }: { setIsOpen: React.Dispatch<React.SetS
                             initial={{ scale: 0 }}
                             animate={{ scale: 1 }}
                             transition={{ duration: 0.5, ease: 'easeInOut' }}
-                            className='w-full h-full flex flex-col items-center justify-center gap-4 select-none'
+                            className='w-full h-full flex flex-col items-center justify-center gap-3 width-laptop:gap-4 select-none'
                         >
-                            {reactionSpeedGame.gameWon ? <Crown className='w-72 h-72 text-white' strokeWidth={3} /> : <Frown className='w-72 h-72 text-white' strokeWidth={3} />}
-                            <span className={`${orbitronSemibold.className} w-[60%] text-center text-lg flex flex-col gap-1.5`}>
-                                <span className='text-xl'>You {reactionSpeedGame.gameWon ? 'won' : 'lost'}!</span>
+                            {reactionSpeedGame.gameWon ? (
+                                <Crown className='w-36 h-36 width-laptop:w-72 width-laptop:h-72 text-white' strokeWidth={3} />
+                            ) : (
+                                <Frown className='w-36 h-36 width-laptop:w-72 width-laptop:h-72 text-white' strokeWidth={3} />
+                            )}
+                            <span className={`${orbitronSemibold.className} w-[60%] text-center text-base width-laptop:text-lg flex flex-col gap-1.5`}>
+                                <span className='text-lg width-laptop:text-xl'>You {reactionSpeedGame.gameWon ? 'won' : 'lost'}!</span>
                                 <span>
                                     Across 5 trials, your average time was{' '}
                                     <span className={orbitronBold.className}>{reactionSpeedGame.averageSpeed.toFixed(1).toString().replaceAll('.0', '')}ms!</span>
@@ -343,7 +346,7 @@ const ReactionSpeedTest = ({ setIsOpen }: { setIsOpen: React.Dispatch<React.SetS
                             </span>
                             <button
                                 onClick={() => setIsOpen(false)}
-                                className={`${orbitronBold.className} px-12 py-4 text-2xl rounded-lg border-4 border-[#5b8ad0] shadow-[0px_10px_0px_5px_#5b8ad0] hover:shadow-none hover:translate-y-[10px] transition-all duration-125`}
+                                className={`${orbitronBold.className} px-10 py-4 text-xl width-laptop:px-12 width-laptop:text-2xl rounded-lg border-4 border-[#5b8ad0] shadow-[0px_10px_0px_5px_#5b8ad0] hover:shadow-none hover:translate-y-[10px] transition-all duration-125`}
                             >
                                 {reactionSpeedGame.gameWon ? 'ATTACK!' : 'CONCEDE'}
                             </button>

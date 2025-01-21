@@ -199,17 +199,17 @@ const MemoryGame = ({ setIsOpen }: { setIsOpen: React.Dispatch<React.SetStateAct
         <>
             <div className='w-full h-full flex flex-col gap-3'>
                 <span className='flex justify-between items-start'>
-                    <h3 className={`${audiowide.className} text-4xl font-bold text-left mb-5 uppercase`}>{game.game.selectedGame?.replaceAll('-', ' ')}</h3>
+                    <h3 className={`${audiowide.className} text-3xl width-laptop:text-4xl font-bold text-left mb-5 uppercase`}>{game.game.selectedGame?.replaceAll('-', ' ')}</h3>
                     {memoryGame.stage !== 'instructions' && (
                         <div className={`flex gap-2 items-center`}>
-                            <span className={`${orbitronBold.className} text-xl`}>ROUND {memoryGame.roundNum} / 7</span>
+                            <span className={`${orbitronBold.className} text-[18px] width-laptop:text-xl`}>ROUND {memoryGame.roundNum} / 7</span>
                             <span className='w-2.5 h-2.5 rounded-full bg-white'></span>
                             <span className='flex gap-2'>
                                 {Array.from({ length: memoryGame.livesLeft }).map((_, index) => (
-                                    <Heart key={index} className='w-8 h-8 text-white' />
+                                    <Heart key={index} className='w-6 h-6 width-laptop:w-8 width-laptop:h-8 text-white' />
                                 ))}
                                 {Array.from({ length: startingLives - memoryGame.livesLeft }).map((_, index) => (
-                                    <HeartCrack key={index} className='w-8 h-8 text-white' />
+                                    <HeartCrack key={index} className='w-6 h-6 width-laptop:w-8 width-laptop:h-8 text-white' />
                                 ))}
                             </span>
                         </div>
@@ -219,14 +219,20 @@ const MemoryGame = ({ setIsOpen }: { setIsOpen: React.Dispatch<React.SetStateAct
                     {memoryGame.stage === 'instructions' && (
                         <div className='w-full h-full flex flex-col gap-6 items-center justify-center'>
                             <span className='flex'>
-                                <Grid2X2 className='mt-4 mr-8 text-white w-24 h-24 bg-[rgba(255,255,255,.4)] rounded-[42.5%] p-4' strokeWidth={2} />
-                                <Grid2X2 className='mt-7 mr-2 text-white w-24 h-24 bg-[rgba(255,255,255,.4)] rounded-[42.5%] p-4' strokeWidth={2} />
-                                <Grid2x2Check className='-mt-3 mr-6 text-white w-24 h-24 bg-[rgba(255,255,255,.4)] rounded-[42.5%] p-4' strokeWidth={2} />
-                                <Grid2x2Check className='mt-7 mr-4 text-white w-24 h-24 bg-[rgba(255,255,255,.4)] rounded-[42.5%] p-4' strokeWidth={2} />
-                                <Grid2x2X className='mt-3 mr-4 text-white w-24 h-24 bg-[rgba(255,255,255,.4)] rounded-[42.5%] p-4' strokeWidth={2} />
-                                <Grid2x2X className='-mt-2 text-white w-24 h-24 bg-[rgba(255,255,255,.4)] rounded-[42.5%] p-4' strokeWidth={2} />
+                                <Grid2X2 className='mt-4 mr-8 text-white w-20 h-20 width-laptop:w-24 width-laptop:h-24 bg-[rgba(255,255,255,.4)] rounded-[42.5%] p-4' strokeWidth={2} />
+                                <Grid2X2 className='mt-7 mr-2 text-white w-20 h-20 width-laptop:w-24 width-laptop:h-24 bg-[rgba(255,255,255,.4)] rounded-[42.5%] p-4' strokeWidth={2} />
+                                <Grid2x2Check
+                                    className='-mt-3 mr-6 text-white w-20 h-20 width-laptop:w-24 width-laptop:h-24 bg-[rgba(255,255,255,.4)] rounded-[42.5%] p-4'
+                                    strokeWidth={2}
+                                />
+                                <Grid2x2Check
+                                    className='mt-7 mr-4 text-white w-20 h-20 width-laptop:w-24 width-laptop:h-24 bg-[rgba(255,255,255,.4)] rounded-[42.5%] p-4'
+                                    strokeWidth={2}
+                                />
+                                <Grid2x2X className='mt-3 mr-4 text-white w-20 h-20 width-laptop:w-24 width-laptop:h-24 bg-[rgba(255,255,255,.4)] rounded-[42.5%] p-4' strokeWidth={2} />
+                                <Grid2x2X className='-mt-2 text-white w-20 h-20 width-laptop:w-24 width-laptop:h-24 bg-[rgba(255,255,255,.4)] rounded-[42.5%] p-4' strokeWidth={2} />
                             </span>
-                            <span className={`${orbitronSemibold.className} w-[60%] text-center text-lg flex flex-col gap-1.5`}>
+                            <span className={`${orbitronSemibold.className} w-[60%] text-center text-base width-laptop:text-lg flex flex-col gap-1.5`}>
                                 <span>In this minigame, you will have to remember the pattern of squares on a grid increasing in size.</span>
                                 <span>
                                     You will have to complete <span className={orbitronBold.className}>{threshold} rounds</span>, and you must make less than {startingLives} errors or
@@ -249,7 +255,7 @@ const MemoryGame = ({ setIsOpen }: { setIsOpen: React.Dispatch<React.SetStateAct
                                         } as MemoryGame;
                                     })
                                 }
-                                className={`${orbitronBold.className} px-12 py-4 text-2xl rounded-lg border-4 border-[#5b8ad0] shadow-[0px_10px_0px_5px_#5b8ad0] hover:shadow-none hover:translate-y-[10px] transition-all duration-125`}
+                                className={`${orbitronBold.className} px-10 py-4 text-xl width-laptop:px-12 width-laptop:text-2xl rounded-lg border-4 border-[#5b8ad0] shadow-[0px_10px_0px_5px_#5b8ad0] hover:shadow-none hover:translate-y-[10px] transition-all duration-125`}
                             >
                                 BEGIN!
                             </button>
@@ -260,7 +266,7 @@ const MemoryGame = ({ setIsOpen }: { setIsOpen: React.Dispatch<React.SetStateAct
                             <div className='h-full'>
                                 {memoryGame.currentRound !== null && (
                                     <div
-                                        className={`h-full gap-4`}
+                                        className={`h-full gap-3 width-laptop:gap-4`}
                                         style={{
                                             display: 'grid',
                                             gridTemplateRows: `repeat(${memoryGame.currentRound.size}, 1fr)`,
@@ -297,13 +303,14 @@ const MemoryGame = ({ setIsOpen }: { setIsOpen: React.Dispatch<React.SetStateAct
                             transition={{ duration: 0.5, ease: 'easeInOut' }}
                             className='w-full h-full flex flex-col items-center justify-center gap-4 select-none'
                         >
-                            {memoryGame.gameWon ? <Crown className='w-72 h-72 text-white' strokeWidth={3} /> : <Frown className='w-72 h-72 text-white' strokeWidth={3} />}
-                            <span className={`${orbitronSemibold.className} w-[60%] text-center text-lg flex flex-col gap-1.5`}>
-                                <span className='text-xl'>You {memoryGame.gameWon ? 'won' : 'lost'}!</span>
-                                <span>
-                                    You managed to complete{' '}
-                                    {memoryGame.gameWon ? 'all of the seven rounds!' : `${memoryGame.roundNum === 1 ? '0' : memoryGame.roundNum} of the 7 rounds.`}
-                                </span>
+                            {memoryGame.gameWon ? (
+                                <Crown className='w-36 h-36 width-laptop:w-72 width-laptop:h-72 text-white' strokeWidth={3} />
+                            ) : (
+                                <Frown className='w-36 h-36 width-laptop:w-72 width-laptop:h-72 text-white' strokeWidth={3} />
+                            )}
+                            <span className={`${orbitronSemibold.className} w-[65%] text-center text-base width-laptop:text-lg flex flex-col gap-1.5`}>
+                                <span className='text-lg width-laptop:text-xl'>You {memoryGame.gameWon ? 'won' : 'lost'}!</span>
+                                <span>You managed to complete {memoryGame.gameWon ? 'all of the seven rounds!' : `${memoryGame.roundNum - 1} of the 7 rounds.`}</span>
                                 <span>
                                     {memoryGame.gameWon
                                         ? `Click the "ATTACK" button below to launch an attack on the CPU!`
@@ -312,7 +319,7 @@ const MemoryGame = ({ setIsOpen }: { setIsOpen: React.Dispatch<React.SetStateAct
                             </span>
                             <button
                                 onClick={() => setIsOpen(false)}
-                                className={`${orbitronBold.className} px-12 py-4 text-2xl rounded-lg border-4 border-[#5b8ad0] shadow-[0px_10px_0px_5px_#5b8ad0] hover:shadow-none hover:translate-y-[10px] transition-all duration-125`}
+                                className={`${orbitronBold.className} px-10 py-4 text-xl width-laptop:px-12 width-laptop:text-2xl rounded-lg border-4 border-[#5b8ad0] shadow-[0px_10px_0px_5px_#5b8ad0] hover:shadow-none hover:translate-y-[10px] transition-all duration-125`}
                             >
                                 {memoryGame.gameWon ? 'ATTACK!' : 'CONCEDE'}
                             </button>

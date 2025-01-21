@@ -8,7 +8,7 @@ const orbitronBold = Orbitron({ weight: '800', subsets: ['latin'] });
 const orbitronSemibold = Orbitron({ weight: '500', subsets: ['latin'] });
 const orbitronLight = Orbitron({ weight: '400', subsets: ['latin'] });
 
-const StatsDisplay = ({ character }: { character: 'cpu' | 'player' }) => {
+const StatsDisplay = ({ character, from }: { character: 'cpu' | 'player'; from: 'display' | 'modal' }) => {
     const context = useGameContext();
     if (context === undefined) throw new Error('useContext(GameContext) must be used within a GameContext.Provider');
 
@@ -66,7 +66,7 @@ const StatsDisplay = ({ character }: { character: 'cpu' | 'player' }) => {
 
     return (
         <div className='animated-gradient border-[12px] rounded-[56px] py-3 px-8 border-white drop-shadow-2xl w-full h-full flex flex-col gap-3'>
-            <h3 className={`${audiowide.className} text-white text-2xl uppercase flex gap-3`}>
+            <h3 className={`${audiowide.className} ${from === 'modal' ? 'text-2xl' : 'text-xl width-ipad:text-[22px] width-laptop:text-2xl'} text-white uppercase flex gap-3`}>
                 <span className={`${statsShown === 'player' ? 'text-white' : 'text-gray-300'} cursor-pointer`} onClick={() => setStatsShown('player')}>
                     YOUR CHARACTER
                 </span>
@@ -110,9 +110,21 @@ const StatsDisplay = ({ character }: { character: 'cpu' | 'player' }) => {
 
                 return (
                     <div className='flex gap-2 pl-4 items-center' key={type}>
-                        <h4 className={`${orbitronBold.className} text-main-${color} brightness-150 text-xl uppercase min-w-36`}>{type}: </h4>
+                        <h4
+                            className={`${orbitronBold.className} ${
+                                from === 'modal' ? 'text-xl' : 'text-base width-ipad:text-lg width-laptop:text-xl'
+                            } text-main-${color} brightness-150 uppercase w-full max-w-[11vw] width-desktop:max-w-[9.5vw]`}
+                        >
+                            {type}:{' '}
+                        </h4>
                         <AnimatePresence>
-                            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className='w-full h-12 border-[6px] border-white rounded-full'>
+                            <motion.div
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                className={`${
+                                    from === 'modal' ? 'h-12 border-[6px]' : 'h-10 border-[5px] width-laptop:h-12 width-laptop:border-[6px]'
+                                } w-full border-white rounded-full`}
+                            >
                                 <div
                                     onMouseEnter={() => setHovered(type as 'health' | 'strength' | 'defense' | 'luck' | null)}
                                     onMouseLeave={() => setHovered(null)}
@@ -122,12 +134,16 @@ const StatsDisplay = ({ character }: { character: 'cpu' | 'player' }) => {
                                         initial={{ width: 0 }}
                                         animate={{ width: `${percentages[type as 'health' | 'strength' | 'defense' | 'luck'] * 100}%` }}
                                         transition={{ duration: 1.5, ease: 'easeInOut' }}
-                                        className={`${orbitronBold.className} main-${color} h-9 absolute left-0 rounded-full text-white grid place-items-center`}
+                                        className={`${orbitronBold.className} ${
+                                            from === 'modal' ? 'h-9' : 'h-[30px] width-laptop:h-9'
+                                        } main-${color} absolute left-0 rounded-full text-white grid place-items-center`}
                                     >
-                                        <span className='text-nowrap'>{percentages[type as 'health' | 'strength' | 'defense' | 'luck'] > 0.1 ? displayText : ''}</span>
+                                        <span className={`${from === 'modal' ? 'text-base' : 'text-sm width-laptop:text-base'} text-nowrap`}>
+                                            {percentages[type as 'health' | 'strength' | 'defense' | 'luck'] > 0.1 ? displayText : ''}
+                                        </span>
                                     </motion.div>
                                     <div className='w-full grid place-items-center'>
-                                        <span className={`${orbitronBold.className} text-white`}>
+                                        <span className={`${orbitronBold.className} ${from === 'modal' ? 'text-base' : 'text-sm width-laptop:text-base'} text-white`}>
                                             {percentages[type as 'health' | 'strength' | 'defense' | 'luck'] <= 0.1 ? displayText : ''}
                                         </span>
                                         <AnimatePresence>

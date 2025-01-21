@@ -15,11 +15,12 @@ const StatsDisplay = () => {
     return (
         <>
             <div
-                onClick={() => setStatsAndShopModalOpen(true)}
-                className='absolute bottom-4 left-4 border-4 rounded-full animated-gradient py-3 px-6 gap-2 flex justify-center items-center hover:scale-105 transition-all cursor-pointer'
+                onClick={() => {
+                    setStatsAndShopModalOpen(true);
+                }}
+                className={`border-[12px] w-4/5 width-ipad:w-1/2 width-monitor:w-2/5 rounded-[56px] py-3 px-8 border-white drop-shadow-2xl animated-gradient hover:scale-105 transition-all cursor-pointer`}
             >
-                <h3 className={`${audiowide.className} text-white text-xl`}>STATISTICS</h3>
-                <SquareArrowOutUpRight className='text-white' strokeWidth={2.5} />
+                <h1 className={`${audiowide.className} text-[4.5vw] width-laptop:text-6xl text-white drop-shadow-lg text-center leading-none`}>SHOP & STATS</h1>
             </div>
             <StatsShoppingModal isOpen={statsAndShopModalOpen} setIsOpen={setStatsAndShopModalOpen} />
         </>

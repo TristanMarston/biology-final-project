@@ -202,7 +202,7 @@ const MathChallenge = ({ setIsOpen }: { setIsOpen: React.Dispatch<React.SetState
         <>
             <div className='w-full h-full flex flex-col gap-3'>
                 <span className='flex justify-between items-start'>
-                    <h3 className={`${audiowide.className} text-4xl font-bold text-left mb-5 uppercase`}>{game.game.selectedGame?.replaceAll('-', ' ')}</h3>
+                    <h3 className={`${audiowide.className} text-3xl width-laptop:text-4xl font-bold text-left mb-5 uppercase`}>{game.game.selectedGame?.replaceAll('-', ' ')}</h3>
                     {mathGame.stage !== 'instructions' && (
                         <div className={`${orbitronSemibold.className} flex gap-2`}>
                             {mathGame.quizStatus.map((status, index) => (
@@ -220,15 +220,15 @@ const MathChallenge = ({ setIsOpen }: { setIsOpen: React.Dispatch<React.SetState
                     {mathGame.stage === 'instructions' && (
                         <div className='w-full h-full flex flex-col gap-6 items-center justify-center'>
                             <span className='flex'>
-                                <Plus className='mt-4 mr-8 text-white w-24 h-24 bg-[rgba(255,255,255,.4)] rounded-full p-4' strokeWidth={3} />
-                                <Minus className='mt-7 mr-2 text-white w-24 h-24 bg-[rgba(255,255,255,.4)] rounded-full p-4' strokeWidth={3} />
-                                <X className='-mt-3 mr-6 text-white w-24 h-24 bg-[rgba(255,255,255,.4)] rounded-full p-4' strokeWidth={3} />
-                                <Divide className='mt-7 mr-4 text-white w-24 h-24 bg-[rgba(255,255,255,.4)] rounded-full p-4' strokeWidth={3} />
-                                <Radical className='mt-3 mr-4 text-white w-24 h-24 bg-[rgba(255,255,255,.4)] rounded-full p-4' strokeWidth={3} />
-                                <Equal className='-mt-2 text-white w-24 h-24 bg-[rgba(255,255,255,.4)] rounded-full p-4' strokeWidth={3} />
+                                <Plus className='mt-4 mr-8 text-white w-20 h-20 width-laptop:w-24 width-laptop:h-24 bg-[rgba(255,255,255,.4)] rounded-full p-4' strokeWidth={3} />
+                                <Minus className='mt-7 mr-2 text-white w-20 h-20 width-laptop:w-24 width-laptop:h-24 bg-[rgba(255,255,255,.4)] rounded-full p-4' strokeWidth={3} />
+                                <X className='-mt-3 mr-6 text-white w-20 h-20 width-laptop:w-24 width-laptop:h-24 bg-[rgba(255,255,255,.4)] rounded-full p-4' strokeWidth={3} />
+                                <Divide className='mt-7 mr-4 text-white w-20 h-20 width-laptop:w-24 width-laptop:h-24 bg-[rgba(255,255,255,.4)] rounded-full p-4' strokeWidth={3} />
+                                <Radical className='mt-3 mr-4 text-white w-20 h-20 width-laptop:w-24 width-laptop:h-24 bg-[rgba(255,255,255,.4)] rounded-full p-4' strokeWidth={3} />
+                                <Equal className='-mt-2 text-white w-20 h-20 width-laptop:w-24 width-laptop:h-24 bg-[rgba(255,255,255,.4)] rounded-full p-4' strokeWidth={3} />
                             </span>
-                            <span className={`${orbitronSemibold.className} w-[60%] text-center text-lg flex flex-col gap-1.5`}>
-                                <span>In this minigame, you will have to solve basic math equations in a time restraint</span>
+                            <span className={`${orbitronSemibold.className} w-[70%] text-center text-base width-laptop:text-lg flex flex-col gap-1.5`}>
+                                <span>In this minigame, you will have to solve basic math equations in a time restraint.</span>
                                 <span>
                                     There will be {numQuestions} questions. You will have <span className={orbitronBold.className}>5 seconds</span> for each question, and you must get
                                     at least {threshold} of the questions correct.
@@ -251,7 +251,7 @@ const MathChallenge = ({ setIsOpen }: { setIsOpen: React.Dispatch<React.SetState
                                         } as MathGame;
                                     });
                                 }}
-                                className={`${orbitronBold.className} px-12 py-4 text-2xl rounded-lg border-4 border-[#5b8ad0] shadow-[0px_10px_0px_5px_#5b8ad0] hover:shadow-none hover:translate-y-[10px] transition-all duration-125`}
+                                className={`${orbitronBold.className} px-10 py-4 text-xl width-laptop:px-12 width-laptop:text-2xl rounded-lg border-4 border-[#5b8ad0] shadow-[0px_10px_0px_5px_#5b8ad0] hover:shadow-none hover:translate-y-[10px] transition-all duration-125`}
                             >
                                 BEGIN!
                             </button>
@@ -263,7 +263,7 @@ const MathChallenge = ({ setIsOpen }: { setIsOpen: React.Dispatch<React.SetState
                                 initial={{ scale: 1 }}
                                 animate={{ scale: fadeQuestion ? 0 : 1 }}
                                 transition={{ duration: 0.5, ease: 'easeInOut' }}
-                                className='h-full w-3/4 flex flex-col justify-center items-center gap-8'
+                                className='h-full w-3/4 flex flex-col justify-center items-center gap-5 width-laptop:gap-8'
                             >
                                 <div
                                     className={`${nunitoBold.className} ${
@@ -272,11 +272,11 @@ const MathChallenge = ({ setIsOpen }: { setIsOpen: React.Dispatch<React.SetState
                                             : correctAnswer === 'incorrect'
                                             ? 'bg-red-400 bg-opacity-80'
                                             : 'bg-[rgba(255,255,255,.4)]'
-                                    } text-white w-32 h-32 border-[6px] shadow-2xl border-transparent rounded-full grid place-items-center text-7xl relative transition-all`}
+                                    } text-white w-28 h-28 text-6xl width-laptop:w-32 width-laptop:h-32 width-laptop:text-7xl border-[6px] shadow-2xl border-transparent rounded-full grid place-items-center  relative transition-all`}
                                 >
                                     <span>{mathGame.questionNum}</span>
                                     <div
-                                        className='absolute -top-[6px] -left-[6px] w-32 h-32 rounded-full z-10'
+                                        className='absolute -top-[6px] -left-[6px] w-28 h-28 width-laptop:w-32 width-laptop:h-32 rounded-full z-10'
                                         style={{
                                             background: `conic-gradient(transparent ${100 - (mathGame.millisecondsLeft / timePerQuestion) * 100}%, #fff ${
                                                 100 - (mathGame.millisecondsLeft / timePerQuestion) * 100
@@ -286,7 +286,7 @@ const MathChallenge = ({ setIsOpen }: { setIsOpen: React.Dispatch<React.SetState
                                         }}
                                     ></div>
                                 </div>
-                                <h4 className={`${orbitronBold.className} text-3xl text-center`}>{mathGame.currentQuestion.question}</h4>
+                                <h4 className={`${orbitronBold.className} text-2xl width-laptop:text-3xl text-center`}>{mathGame.currentQuestion.question}</h4>
                                 <form
                                     onSubmit={(e) => {
                                         e.preventDefault();
@@ -307,11 +307,11 @@ const MathChallenge = ({ setIsOpen }: { setIsOpen: React.Dispatch<React.SetState
                                         }}
                                         value={response === '' ? '' : response === '-' ? '-' : Number(response)}
                                         autoFocus
-                                        className={`${orbitronBold.className} outline-none text-xl w-1/2 bg-white bg-opacity-80 rounded-full shadow-lg border-4 border-[#5b8ad0] py-4 text-center text-[#5b8ad0]`}
+                                        className={`${orbitronBold.className} outline-none text-lg width-laptop:text-xl py-2.5 width-laptop:py-4 w-1/2 bg-white bg-opacity-80 rounded-full shadow-lg border-4 border-[#5b8ad0]  text-center text-[#5b8ad0]`}
                                     />
                                     <button
                                         type='submit'
-                                        className={`${orbitronBold.className} px-12 py-4 text-2xl rounded-lg border-4 border-[#5b8ad0] shadow-[0px_10px_0px_5px_#5b8ad0] hover:shadow-none hover:translate-y-[10px] transition-all duration-125`}
+                                        className={`${orbitronBold.className} px-10 py-4 text-xl width-laptop:px-12 width-laptop:text-2xl rounded-lg border-4 border-[#5b8ad0] shadow-[0px_10px_0px_5px_#5b8ad0] hover:shadow-none hover:translate-y-[10px] transition-all duration-125`}
                                     >
                                         SUBMIT
                                     </button>
@@ -326,9 +326,9 @@ const MathChallenge = ({ setIsOpen }: { setIsOpen: React.Dispatch<React.SetState
                             transition={{ duration: 0.5, ease: 'easeInOut' }}
                             className='w-full h-full flex flex-col items-center justify-center gap-4 select-none'
                         >
-                            {mathGame.gameWon ? <Crown className='w-72 h-72 text-white' strokeWidth={3} /> : <Frown className='w-72 h-72 text-white' strokeWidth={3} />}
-                            <span className={`${orbitronSemibold.className} w-[60%] text-center text-lg flex flex-col gap-1.5`}>
-                                <span className='text-xl'>You {mathGame.gameWon ? 'won' : 'lost'}!</span>
+                            {mathGame.gameWon ? <Crown className='w-36 h-36 width-laptop:w-72 width-laptop:h-72 text-white' strokeWidth={3} /> : <Frown className='w-36 h-36 width-laptop:w-72 width-laptop:h-72 text-white' strokeWidth={3} />}
+                            <span className={`${orbitronSemibold.className} w-[65%] text-center text-base width-laptop:text-lg flex flex-col gap-1.5`}>
+                                <span className='text-lg width-laptop:text-xl'>You {mathGame.gameWon ? 'won' : 'lost'}!</span>
                                 <span>
                                     You got {mathGame.quizStatus.filter((status) => status === 'correct').length} out of {numQuestions} questions correct!
                                 </span>
@@ -340,7 +340,7 @@ const MathChallenge = ({ setIsOpen }: { setIsOpen: React.Dispatch<React.SetState
                             </span>
                             <button
                                 onClick={() => setIsOpen(false)}
-                                className={`${orbitronBold.className} px-12 py-4 text-2xl rounded-lg border-4 border-[#5b8ad0] shadow-[0px_10px_0px_5px_#5b8ad0] hover:shadow-none hover:translate-y-[10px] transition-all duration-125`}
+                                className={`${orbitronBold.className} px-10 py-4 text-xl width-laptop:px-12 width-laptop:text-2xl rounded-lg border-4 border-[#5b8ad0] shadow-[0px_10px_0px_5px_#5b8ad0] hover:shadow-none hover:translate-y-[10px] transition-all duration-125`}
                             >
                                 {mathGame.gameWon ? 'ATTACK!' : 'CONCEDE'}
                             </button>
