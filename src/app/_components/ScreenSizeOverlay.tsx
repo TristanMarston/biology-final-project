@@ -7,13 +7,14 @@ import { useEffect, useState } from 'react';
 const orbitronBold = Orbitron({ weight: '800', subsets: ['latin'] });
 
 const ScreenSizeOverlay = () => {
-    const [screenSize, setScreenSize] = useState({ width: window.innerWidth, height: window.innerHeight });
+    const [screenSize, setScreenSize] = useState({ width: 1000, height: 650 });
 
     useEffect(() => {
         const handleResize = () => {
             setScreenSize({ width: window.innerWidth, height: window.innerHeight });
         };
 
+        handleResize();
         window.addEventListener('resize', handleResize);
         return () => window.removeEventListener('resize', handleResize);
     }, []);
