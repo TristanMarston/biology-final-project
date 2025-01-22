@@ -83,7 +83,7 @@ const HelpModal = ({ isOpen, setIsOpen, initialTab }: { isOpen: boolean; setIsOp
                                                 In this stage of the game, the alleles for your fighter will be randomly selected. You may only use the alleles that you have purchased.
                                             </p>
                                             <p className='text-base width-laptop:text-lg'>
-                                                Each &quot;parent&quot; represents a haploid cell (which contains have the genome). The alleles within each haploid cell, provided by
+                                                Each &quot;parent&quot; represents a haploid cell (which contains half the genome). The alleles within each haploid cell, provided by
                                                 each parent, will combine to give you the stats for your fighter.
                                             </p>
                                             <p className='text-base width-laptop:text-lg'>
@@ -125,7 +125,7 @@ const HelpModal = ({ isOpen, setIsOpen, initialTab }: { isOpen: boolean; setIsOp
                                                 CPU to reduce its health. To win the game, you must reduce the CPU&apos;s health to 0 without losing your health.
                                             </p>
                                             <p className='text-base width-laptop:text-lg'>
-                                                In order to launch an attack, you must win a minigame, which is randomly selected. Press the &quot;Begin Game&quot; button on the screen
+                                                In order to launch an attack, you must win a minigame, which is randomly selected. Press the &quot;Begin Game&quot; button on the screen 
                                                 roll which minigame you&apos;re going to play. There are 6 minigame options, and each minigame should take roughly 30-60s.
                                             </p>
                                             <p className='text-base width-laptop:text-lg'>
