@@ -4,15 +4,18 @@ import { Audiowide, Orbitron } from 'next/font/google';
 import { useEffect, useState } from 'react';
 import GameRollingModal from './_fight_components/GameRollingModal';
 import GameModal from './_fight_components/GameModal';
+import { Tab } from '@/app/_components/_modals/HelpModal';
 
 const audiowide = Audiowide({ weight: '400', subsets: ['latin'] });
 
 const Fight = ({
     executeAttack,
     setGameOverScreenActive,
+    setHelpModalOpen,
 }: {
     executeAttack: (attacker: 'cpu' | 'player') => void;
     setGameOverScreenActive: React.Dispatch<React.SetStateAction<boolean>>;
+    setHelpModalOpen: React.Dispatch<React.SetStateAction<{ open: boolean; tab: Tab }>>;
 }) => {
     const context = useGameContext();
     if (context === undefined) throw new Error('useContext(GameContext) must be used within a GameContext.Provider');
@@ -72,27 +75,32 @@ const Fight = ({
     return (
         <>
             <AnimatePresence>
-                <motion.button
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ duration: 1, ease: 'easeInOut' }}
-                    onClick={() => {
-                        if (game.game.stage === 'not-started') {
-                            setGame((prevGame) => {
-                                return {
-                                    ...prevGame,
-                                    game: {
-                                        ...prevGame.game,
-                                        stage: 'selecting-game',
-                                    },
-                                };
-                            });
-                        }
-                    }}
-                    className={`${audiowide.className} w-full text-2xl text-white animated-gradient p-3 border-[6px] border-white rounded-xl uppercase hover:scale-105 transition-all cursor-pointer text-nowrap`}
-                >
-                    BEGIN GAME #{game.game.number}
-                </motion.button>
+                <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1, ease: 'easeInOut' }} className='flex flex-col gap-4 w-full'>
+                    <button
+                        onClick={() => {
+                            if (game.game.stage === 'not-started') {
+                                setGame((prevGame) => {
+                                    return {
+                                        ...prevGame,
+                                        game: {
+                                            ...prevGame.game,
+                                            stage: 'selecting-game',
+                                        },
+                                    };
+                                });
+                            }
+                        }}
+                        className={`${audiowide.className} w-full text-2xl text-white animated-gradient p-3 border-[6px] border-white rounded-xl uppercase hover:scale-105 transition-all cursor-pointer text-nowrap`}
+                    >
+                        BEGIN GAME #{game.game.number}
+                    </button>
+                    <button
+                        onClick={() => setHelpModalOpen({ open: true, tab: 'gameplay' })}
+                        className={`${audiowide.className} w-full text-2xl text-white animated-gradient p-3 border-[6px] border-white rounded-xl uppercase hover:scale-105 transition-all cursor-pointer text-nowrap`}
+                    >
+                        HOW TO PLAY
+                    </button>
+                </motion.div>
             </AnimatePresence>
             <AnimatePresence>
                 <motion.div className='w-[15vw]' initial={{ x: '150%' }} animate={{ x: 0 }} transition={{ duration: 1, ease: 'easeInOut' }}>

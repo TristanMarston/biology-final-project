@@ -7,6 +7,7 @@ import Fight from './Fight';
 import { useEffect, useState } from 'react';
 import HealthBar from './_fight_components/HealthBar';
 import StatsQuicklookModal from './_fight_components/StatsQuicklookModal';
+import { Tab } from '@/app/_components/_modals/HelpModal';
 
 const audiowide = Audiowide({ weight: '400', subsets: ['latin'] });
 const orbitronBold = Orbitron({ weight: '800', subsets: ['latin'] });
@@ -17,10 +18,12 @@ const CharacterFightContainer = ({
     stage,
     setStage,
     setGameOverScreenActive,
+    setHelpModalOpen,
 }: {
     stage: Stage;
     setStage: React.Dispatch<React.SetStateAction<Stage>>;
     setGameOverScreenActive: React.Dispatch<React.SetStateAction<boolean>>;
+    setHelpModalOpen: React.Dispatch<React.SetStateAction<{ open: boolean; tab: Tab }>>;
 }) => {
     const context = useGameContext();
     if (context === undefined) throw new Error('useContext(GameContext) must be used within a GameContext.Provider');
@@ -124,7 +127,7 @@ const CharacterFightContainer = ({
                                 exit={{ opacity: 0.6, x: '140%' }}
                                 transition={{ duration: 1, ease: 'easeInOut' }}
                             >
-                                <StatsDisplay character='player' from='display' />
+                                <StatsDisplay character='player' from='display' setHelpModalOpen={setHelpModalOpen} />
                                 <button
                                     onClick={() => setStage('game-started')}
                                     className={`${audiowide.className} flex justify-center text-xl width-laptop:text-2xl text-white animated-gradient border-[12px] rounded-[56px] py-3 px-8 border-white drop-shadow-2xl w-full h-full hover:scale-105 hover:brightness-125 transition-all`}
@@ -135,10 +138,15 @@ const CharacterFightContainer = ({
                         )}
                     </AnimatePresence>
                 ) : (
-                    stage === 'initial-animation' && <Fight executeAttack={executeAttack} setGameOverScreenActive={setGameOverScreenActive} />
+                    stage === 'initial-animation' && <Fight executeAttack={executeAttack} setGameOverScreenActive={setGameOverScreenActive} setHelpModalOpen={setHelpModalOpen} />
                 )}
             </motion.div>
-            <StatsQuicklookModal isOpen={statsQuicklookModalOpen.open} setIsOpen={setStatsQuicklookModalOpen} character={statsQuicklookModalOpen.character} />
+            <StatsQuicklookModal
+                isOpen={statsQuicklookModalOpen.open}
+                setIsOpen={setStatsQuicklookModalOpen}
+                character={statsQuicklookModalOpen.character}
+                setHelpModalOpen={setHelpModalOpen}
+            />
         </>
     );
 };

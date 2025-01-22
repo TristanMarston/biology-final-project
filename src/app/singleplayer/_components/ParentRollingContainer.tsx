@@ -6,6 +6,7 @@ import { SelectedParentAlleles, useGameContext } from '../context';
 import { SkipForward } from 'lucide-react';
 import { AlleleObject } from '@/utils/indexedDB';
 import { Overlay, Stage } from '../page';
+import { Tab } from '@/app/_components/_modals/HelpModal';
 
 const audiowide = Audiowide({ weight: '400', subsets: ['latin'] });
 
@@ -47,7 +48,15 @@ const INITIAL_ALLELE_MAP = [
 
 const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
-const ParentRollingContainer = ({ setOverlay, setStage }: { setOverlay: React.Dispatch<React.SetStateAction<Overlay>>; setStage: React.Dispatch<React.SetStateAction<Stage>> }) => {
+const ParentRollingContainer = ({
+    setOverlay,
+    setStage,
+    setHelpModalOpen,
+}: {
+    setOverlay: React.Dispatch<React.SetStateAction<Overlay>>;
+    setStage: React.Dispatch<React.SetStateAction<Stage>>;
+    setHelpModalOpen: React.Dispatch<React.SetStateAction<{ open: boolean; tab: Tab }>>;
+}) => {
     const [currentStage, setCurrentStage] = useState<CurrentStage>({ allele: 'health', started: false, runRollAnimation: false, animationComplete: false });
     const [previousStage, setPreviousStage] = useState<CurrentStage>({ allele: 'health', started: false, runRollAnimation: false, animationComplete: false });
     const [middleColumnVisible, setMiddleColumnVisible] = useState(true);
@@ -337,6 +346,9 @@ const ParentRollingContainer = ({ setOverlay, setStage }: { setOverlay: React.Di
                                 Ready to begin?
                             </button>
                             <button
+                                onClick={() => {
+                                    setHelpModalOpen({ open: true, tab: 'allele selection' });
+                                }}
                                 className={`${audiowide.className} text-base width-laptop:text-lg text-white animated-gradient p-2 width-ipad:p-3 border-[6px] border-white rounded-xl uppercase hover:scale-105 transition-all cursor-pointer text-nowrap`}
                             >
                                 Confused?

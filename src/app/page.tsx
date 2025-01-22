@@ -6,10 +6,15 @@ import StatsDisplay from './_components/StatsButton';
 import { GameProvider, useGameContext } from './context';
 import { Toaster } from 'react-hot-toast';
 import UtilityBar from './_components/UtilityBar';
+import { useState } from 'react';
+import HelpModal, { Tab } from './_components/_modals/HelpModal';
+import { CircleHelp } from 'lucide-react';
 
 const audiowide = Audiowide({ weight: '400', subsets: ['latin'] });
 
 const page = () => {
+    const [helpModalOpen, setHelpModalOpen] = useState<{ open: boolean; tab: Tab }>({ open: false, tab: 'overview' });
+
     return (
         <GameProvider>
             <Toaster />
@@ -39,7 +44,15 @@ const page = () => {
                     </Link>
                     <StatsDisplay />
                 </div>
+                <button
+                    onClick={() => setHelpModalOpen({ open: true, tab: 'overview' })}
+                    className={`${audiowide.className} text-xl py-2 px-4 width-laptop:py-2.5 width-laptop:px-5 width-laptop:text-2xl flex items-center gap-2 text-white animated-gradient  rounded-full border-4 border-white  uppercase absolute bottom-6 right-6 hover:scale-105 transition-all`}
+                >
+                    <CircleHelp className='w-7 h-7 width-laptop:w-8 width-laptop:h-8' strokeWidth={2.5} />
+                    <span>HOW TO PLAY</span>
+                </button>
             </div>
+            <HelpModal isOpen={helpModalOpen.open} setIsOpen={setHelpModalOpen} initialTab={helpModalOpen.tab} />
         </GameProvider>
     );
 };

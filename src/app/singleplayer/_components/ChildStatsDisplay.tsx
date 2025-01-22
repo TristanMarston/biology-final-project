@@ -2,13 +2,23 @@ import { Audiowide, Orbitron } from 'next/font/google';
 import { useGameContext } from '../context';
 import { useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
+import { CircleHelp } from 'lucide-react';
+import { Tab } from '@/app/_components/_modals/HelpModal';
 
 const audiowide = Audiowide({ weight: '400', subsets: ['latin'] });
 const orbitronBold = Orbitron({ weight: '800', subsets: ['latin'] });
 const orbitronSemibold = Orbitron({ weight: '500', subsets: ['latin'] });
 const orbitronLight = Orbitron({ weight: '400', subsets: ['latin'] });
 
-const StatsDisplay = ({ character, from }: { character: 'cpu' | 'player'; from: 'display' | 'modal' }) => {
+const StatsDisplay = ({
+    character,
+    from,
+    setHelpModalOpen,
+}: {
+    character: 'cpu' | 'player';
+    from: 'display' | 'modal';
+    setHelpModalOpen: React.Dispatch<React.SetStateAction<{ open: boolean; tab: Tab }>>;
+}) => {
     const context = useGameContext();
     if (context === undefined) throw new Error('useContext(GameContext) must be used within a GameContext.Provider');
 
@@ -66,13 +76,24 @@ const StatsDisplay = ({ character, from }: { character: 'cpu' | 'player'; from: 
 
     return (
         <div className='animated-gradient border-[12px] rounded-[56px] py-3 px-8 border-white drop-shadow-2xl w-full h-full flex flex-col gap-3'>
-            <h3 className={`${audiowide.className} ${from === 'modal' ? 'text-2xl' : 'text-xl width-ipad:text-[22px] width-laptop:text-2xl'} text-white uppercase flex gap-3`}>
-                <span className={`${statsShown === 'player' ? 'text-white' : 'text-gray-300'} cursor-pointer`} onClick={() => setStatsShown('player')}>
-                    YOUR CHARACTER
+            <h3
+                className={`${audiowide.className} ${
+                    from === 'modal' ? 'text-2xl' : 'text-xl width-ipad:text-[22px] width-laptop:text-2xl'
+                } text-white uppercase flex justify-between items-center gap-3`}
+            >
+                <span className='flex gap-3'>
+                    <span className={`${statsShown === 'player' ? 'text-white' : 'text-gray-300'} cursor-pointer`} onClick={() => setStatsShown('player')}>
+                        YOUR CHARACTER
+                    </span>
+                    <span className={`${statsShown === 'cpu' ? 'text-white' : 'text-gray-300'} cursor-pointer`} onClick={() => setStatsShown('cpu')}>
+                        CPU
+                    </span>
                 </span>
-                <span className={`${statsShown === 'cpu' ? 'text-white' : 'text-gray-300'} cursor-pointer`} onClick={() => setStatsShown('cpu')}>
-                    CPU
-                </span>
+                <CircleHelp
+                    onClick={() => setHelpModalOpen({ open: true, tab: 'fighter stats' })}
+                    className='w-4 h-4 mr-2 width-laptop:w-7 width-laptop:h-7 width-laptop:mr-3 cursor-pointer hover:scale-105 transition-all'
+                    strokeWidth={2.5}
+                />
             </h3>
             {Object.keys(mapInfo).map((type) => {
                 const { color, unit, alleles, quantities } = mapInfo[type as 'health' | 'strength' | 'defense' | 'luck'];
@@ -139,12 +160,12 @@ const StatsDisplay = ({ character, from }: { character: 'cpu' | 'player'; from: 
                                         } main-${color} absolute left-0 rounded-full text-white grid place-items-center`}
                                     >
                                         <span className={`${from === 'modal' ? 'text-base' : 'text-sm width-laptop:text-base'} text-nowrap`}>
-                                            {percentages[type as 'health' | 'strength' | 'defense' | 'luck'] > 0.1 ? displayText : ''}
+                                            {percentages[type as 'health' | 'strength' | 'defense' | 'luck'] > 0.2 ? displayText : ''}
                                         </span>
                                     </motion.div>
                                     <div className='w-full grid place-items-center'>
                                         <span className={`${orbitronBold.className} ${from === 'modal' ? 'text-base' : 'text-sm width-laptop:text-base'} text-white`}>
-                                            {percentages[type as 'health' | 'strength' | 'defense' | 'luck'] <= 0.1 ? displayText : ''}
+                                            {percentages[type as 'health' | 'strength' | 'defense' | 'luck'] <= 0.2 ? displayText : ''}
                                         </span>
                                         <AnimatePresence>
                                             {hovered === type && (

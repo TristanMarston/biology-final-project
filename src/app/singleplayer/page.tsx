@@ -11,6 +11,7 @@ import Fight from './_components/Fight';
 import CharacterFightContainer from './_components/ChildFightContainer';
 import GameModal from './_components/_fight_components/GameModal';
 import GameOverScreen from './_components/_fight_components/GameOverScreen';
+import HelpModal, { Tab } from '../_components/_modals/HelpModal';
 
 const audiowide = Audiowide({ weight: '400', subsets: ['latin'] });
 
@@ -26,6 +27,7 @@ const page = () => {
     const [stage, setStage] = useState<Stage>('parent-rolling');
     const [gameOpen, setGameOpen] = useState(true);
     const [gameOverScreenActive, setGameOverScreenActive] = useState(false);
+    const [helpModalOpen, setHelpModalOpen] = useState<{ open: boolean; tab: Tab }>({ open: false, tab: 'overview' });
 
     return (
         <GameProvider>
@@ -36,9 +38,9 @@ const page = () => {
                         <h1 className={`${audiowide.className} text-center text-[84px] width-laptop:text-8xl text-white drop-shadow-lg leading-none`}>SINGLEPLAYER</h1>
                     </div>
                     {stage === 'parent-rolling' ? (
-                        <ParentRollingContainer setOverlay={setOverlay} setStage={setStage} />
+                        <ParentRollingContainer setOverlay={setOverlay} setStage={setStage} setHelpModalOpen={setHelpModalOpen} />
                     ) : (
-                        <CharacterFightContainer stage={stage} setStage={setStage} setGameOverScreenActive={setGameOverScreenActive} />
+                        <CharacterFightContainer stage={stage} setStage={setStage} setGameOverScreenActive={setGameOverScreenActive} setHelpModalOpen={setHelpModalOpen} />
                     )}
                     <AnimatePresence>
                         {overlay.toggled && (
@@ -70,7 +72,7 @@ const page = () => {
                     </AnimatePresence>
                 </div>
             </div>
-            {/* <GameModal isOpen={gameOpen} setIsOpen={setGameOpen} /> */}
+            <HelpModal isOpen={helpModalOpen.open} setIsOpen={setHelpModalOpen} initialTab={helpModalOpen.tab} />
         </GameProvider>
     );
 };

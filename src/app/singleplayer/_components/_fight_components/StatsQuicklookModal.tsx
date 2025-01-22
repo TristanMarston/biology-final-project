@@ -1,6 +1,7 @@
 import { AnimatePresence, motion } from 'framer-motion';
 import StatsDisplay from '../ChildStatsDisplay';
 import { Audiowide } from 'next/font/google';
+import { Tab } from '@/app/_components/_modals/HelpModal';
 
 const audiowide = Audiowide({ weight: '400', subsets: ['latin'] });
 
@@ -8,6 +9,7 @@ const StatsQuicklookModal = ({
     isOpen,
     setIsOpen,
     character,
+    setHelpModalOpen,
 }: {
     isOpen: boolean;
     setIsOpen: React.Dispatch<
@@ -17,6 +19,7 @@ const StatsQuicklookModal = ({
         }>
     >;
     character: 'cpu' | 'player';
+    setHelpModalOpen: React.Dispatch<React.SetStateAction<{ open: boolean; tab: Tab }>>;
 }) => {
     return (
         <AnimatePresence>
@@ -40,7 +43,7 @@ const StatsQuicklookModal = ({
                             onClick={(e) => e.stopPropagation()}
                             className='text-white w-full max-w-[95vw] width-ipad:max-w-[90vw] width-laptop:max-w-[85vw] width-desktop:max-w-[75vw] shadow-xl cursor-default relative overflow-hidden flex flex-col gap-3'
                         >
-                            <StatsDisplay character={character} from='modal' />
+                            <StatsDisplay character={character} from='modal' setHelpModalOpen={setHelpModalOpen} />
                             <button
                                 onClick={() =>
                                     setIsOpen((prev) => {
